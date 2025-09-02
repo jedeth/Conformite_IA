@@ -71,14 +71,13 @@ app.post('/analyze', async (req, res) => {
   try {
     const formData = req.body;
 
-    // --- Générer le rapport textuel pour le LLM ---
+    // --- Générer le rapport textuel ---
     let textReport = "Voici les réponses au questionnaire de conformité IA :\n\n";
 
     for (const key in formData) {
         if (Object.hasOwnProperty.call(formData, key)) {
             const value = formData[key];
 
-            // Ignorer les champs de détails vides qui sont soumis par le formulaire
             if (key.startsWith('details_') && !value) {
                 continue;
             }
@@ -86,7 +85,6 @@ app.post('/analyze', async (req, res) => {
             const question = QUESTION_MAP[key] || key;
             let answer = Array.isArray(value) ? value.join(', ') : value;
 
-            // Pour les champs de type "details", on cherche la question parente
             if(key.startsWith('details_')) {
                 const parentKey = key.replace('details_', '');
                 const parentQuestion = Object.entries(QUESTION_MAP).find(([qKey, qValue]) => qValue.toLowerCase().includes(parentKey));
@@ -97,6 +95,13 @@ app.post('/analyze', async (req, res) => {
         }
     }
 
+    // --- ÉTAPE INTERMÉDIAIRE : Renvoyer le rapport texte directement ---
+    res.setHeader('Content-Type', 'text/plain');
+    res.setHeader('Content-Disposition', 'attachment; filename=rapport-conformite.txt');
+    res.send(textReport);
+
+    /*
+    // --- Code pour appeler le LLM (temporairement désactivé) ---
     const prompt = `
       Analyse ce questionnaire de conformité pour un projet utilisant l'IA. 
       Fournis une réponse circonstanciée sur les points de vigilance principaux, 
@@ -113,10 +118,11 @@ app.post('/analyze', async (req, res) => {
 
     // 6. Renvoyer la réponse du LLM au formulaire
     res.json({ analysis: completion.choices[0].message.content });
+    */
 
   } catch (error) {
-    console.error("Erreur lors de l'appel à l'API du LLM:", error);
-    res.status(500).json({ error: "Une erreur est survenue lors de l'analyse." });
+    console.error("Erreur lors de la génération du rapport:", error);
+    res.status(500).json({ error: "Une erreur est survenue lors de la génération du rapport." });
   }
 });
 

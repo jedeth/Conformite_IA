@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
         
         const submitButton = this.querySelector('button[type="submit"]');
-        submitButton.textContent = 'Analyse en cours...';
+        submitButton.textContent = 'Génération du rapport...';
         submitButton.disabled = true;
 
         const formData = new FormData(this);
@@ -132,24 +132,38 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             const response = await fetch('/analyze', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),
             });
 
             if (!response.ok) {
-                throw new Error(`Erreur du serveur: ${response.statusText}`);
+                throw new Error(`Erreur du serveur: ${response.status} ${response.statusText}`);
             }
 
-            const result = await response.json();
-            
-            // Affichez la réponse du LLM !
-            alert("Analyse de conformité :\n\n" + result.analysis);
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            // Extraire le nom du fichier de l'en-tête Content-Disposition si possible
+            const disposition = response.headers.get('Content-Disposition');
+            let filename = 'rapport-conformite.txt';
+            if (disposition && disposition.indexOf('attachment') !== -1) {
+                const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                const matches = filenameRegex.exec(disposition);
+                if (matches != null && matches[1]) {
+                    filename = matches[1].replace(/['"]/g, '');
+                }
+            }
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
 
         } catch (error) {
-            console.error("Erreur lors de la soumission:", error);
-            alert("Impossible d'obtenir une analyse. Veuillez réessayer.");
+            console.error("Erreur lors de la génération du rapport:", error);
+            alert("Impossible de générer le rapport. Veuillez réessayer.");
         } finally {
             submitButton.textContent = 'Soumettre pour analyse';
             submitButton.disabled = false;
