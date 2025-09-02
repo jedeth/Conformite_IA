@@ -1,0 +1,25 @@
+# Fichier .gitignore pour un projet Node.js
+
+# Dépendances
+# Ce dossier est généré par `npm install` et peut être très volumineux.
+# On ne l'inclut jamais dans le dépôt.
+node_modules/
+
+# Variables d'environnement
+# Ce fichier contient vos clés API et autres secrets pour le développement local.
+# Il ne doit JAMAIS être partagé sur GitHub.
+.env
+
+# Fichiers de log
+# Les logs sont spécifiques à une exécution et n'ont pas leur place dans le code source.
+logs/
+*.log
+npm-debug.log*
+
+# Fichiers générés par le système d'exploitation
+.DS_Store
+Thumbs.db
+
+# Fichiers de configuration de l'éditeur de code
+.vscode/
+.idea/

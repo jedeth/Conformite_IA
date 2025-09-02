@@ -1,0 +1,63 @@
+:root {
+    --primary-color: #005a9c;
+    --border-color: #dcdcdc;
+    --bg-light: #f8f9fa;
+    --text-color: #333;
+    --high-risk-color: #c0392b;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e9ecef;
+    color: var(--text-color);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+}
+
+main {
+    max-width: 850px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 30px 40px;
+    border-radius: 5px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.header { text-align: center; border-bottom: 2px solid var(--border-color); padding-bottom: 15px; margin-bottom: 30px; }
+.header h1 { color: var(--primary-color); margin: 0; }
+.header h2 { color: var(--text-color); font-weight: normal; font-size: 1.2em; margin: 5px 0 0; }
+
+fieldset { border: 1px solid var(--border-color); border-radius: 4px; padding: 20px; margin-bottom: 25px; }
+legend { font-weight: 600; font-size: 1.2em; color: var(--primary-color); padding: 0 10px; }
+
+.high-risk-fieldset { border-color: var(--high-risk-color); }
+.high-risk-fieldset legend { color: var(--high-risk-color); }
+
+.form-group { margin-bottom: 20px; }
+label { display: block; margin-bottom: 8px; font-weight: 500; }
+
+.choice-group { display: flex; flex-direction: column; gap: 8px; }
+.choice-item { display: flex; align-items: flex-start; padding: 5px; }
+.choice-item input[type="radio"],
+.choice-item input[type="checkbox"] { margin-top: 4px; margin-right: 12px; flex-shrink: 0; }
+.choice-item label { margin-bottom: 0; font-weight: normal; }
+
+.data-item { padding: 10px; border-bottom: 1px solid #eee; }
+.data-item:last-child { border-bottom: none; }
+.data-item textarea { width: 100%; margin-top: 8px; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; box-sizing: border-box; font-size: 0.95em; resize: vertical; }
+
+input[type="text"], textarea { width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 4px; box-sizing: border-box; }
+textarea { resize: vertical; }
+
+.tooltip { display: inline-block; position: relative; cursor: pointer; background-color: #e0e0e0; color: #555; border-radius: 50%; width: 16px; height: 16px; font-size: 12px; text-align: center; line-height: 16px; margin-left: 5px; }
+.tooltip::after { content: attr(data-tooltip); position: absolute; bottom: 125%; left: 50%; transform: translateX(-50%); background-color: #333; color: #fff; padding: 8px 12px; border-radius: 5px; font-size: 0.9em; white-space: pre-wrap; width: 300px; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; z-index: 10; }
+.tooltip:hover::after { opacity: 1; visibility: visible; }
+
+.conditional-section { margin-top: 15px; padding: 15px; background-color: var(--bg-light); border: 1px dashed var(--border-color); border-radius: 4px; }
+.conditional-intro { font-style: italic; color: #555; margin-top: 0; }
+.hidden { display: none; }
+.sensitive-data-label { font-weight: bold; color: var(--high-risk-color); }
+
+button[type="submit"] { display: block; width: 100%; padding: 15px; background-color: #28a745; color: white; border: none; border-radius: 5px; font-size: 1.2em; cursor: pointer; transition: background-color 0.3s; margin-top: 30px; }
+button[type="submit"]:hover { background-color: #218838; }

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionnaire de Conformité IA</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <div class="header">
+            <h1>Intelligence artificielle (IA)</h1>
+            <h2>Procédure d’analyse de la conformité - Questionnaire</h2>
+        </div>
+
+        <form id="conformity-form">
+
+            <fieldset>
+                <legend>Description du projet</legend>
+                <div class="form-group"><label for="project-name">Nom du Projet :</label><input type="text" id="project-name" name="project_name" required></div>
+                <div class="form-group">
+                    <label>Le projet nécessitant l’utilisation d’une IA a pour objectif :</label>
+                    <div class="choice-group">
+                        <div class="choice-item"><input type="radio" id="obj-admin" name="project_objective" value="gestion_administrative"><label for="obj-admin">La gestion administrative <span class="tooltip" data-tooltip="Exemples : Gestion de la paie, recrutement, comptabilité, sécurité des biens et des personnes, etc.">ⓘ</span></label></div>
+                        <div class="choice-item"><input type="radio" id="obj-pedago" name="project_objective" value="projet_pedagogique"><label for="obj-pedago">Un projet pédagogique <span class="tooltip" data-tooltip="Exemples : Création de supports de cours, évaluation des élèves, correction des devoirs, etc.">ⓘ</span></label></div>
+                        <div class="choice-item"><input type="radio" id="obj-recherche" name="project_objective" value="recherche_scientifique"><label for="obj-recherche">Uniquement la recherche et/ou le développement scientifiques</label></div>
+                    </div>
+                </div>
+                <div class="form-group"><label for="project-activity">Décrire l’activité ou le service dans lequel l’IA vient s’intégrer et sa(ses) finalité(s) :</label><textarea id="project-activity" name="project_activity" rows="3"></textarea></div>
+                <div class="form-group"><label for="project-role-ia">Décrire le rôle de l’IA dans l’activité ou le service rendu :</label><textarea id="project-role-ia" name="project_role_ia" rows="3"></textarea></div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Analyse de l'outil</legend>
+                <div class="form-group">
+                    <label>A quelle catégorie appartient l’outil (service ou application) utilisé :</label>
+                    <div class="choice-group">
+                        <div class="choice-item"><input type="radio" id="tool-ia" name="tool_category" value="ia"><label for="tool-ia">L’outil utilise un ou des systèmes à base d’IA</label></div>
+                        <div class="choice-item"><input type="radio" id="tool-classic" name="tool_category" value="classic"><label for="tool-classic">L’outil utilise un logiciel reposant sur un algorithme classique</label></div>
+                        <div class="choice-item"><input type="radio" id="tool-unknown" name="tool_category" value="unknown"><label for="tool-unknown">Je ne sais pas</label></div>
+                    </div>
+                </div>
+                <div id="conditional-tool-unknown" class="hidden conditional-section">
+                    <p class="conditional-intro">Pour nous aider à déterminer la nature de l'outil, pouvez-vous préciser s'il correspond à l'une de ces descriptions ?</p>
+                    <div class="choice-group">
+                        <div class="choice-item"><input type="checkbox" id="feature-autonomy" name="tool_feature" value="autonomy"><label for="feature-autonomy">L’outil dispose d’une autonomie importante</label></div>
+                        <div class="choice-item"><input type="checkbox" id="feature-explain" name="tool_feature" value="explainability"><label for="feature-explain">Les résultats/réponses fournis sont difficilement explicables</label></div>
+                        <div class="choice-item"><input type="checkbox" id="feature-learning" name="tool_feature" value="learning"><label for="feature-learning">L’outil a une capacité d’apprentissage et d’adaptation</label></div>
+                        <div class="choice-item"><input type="checkbox" id="feature-generation" name="tool_feature" value="generation"><label for="feature-generation">L’outil génère automatiquement du contenu</label></div>
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label>L’utilisation de l’outil :</label>
+                    <div class="choice-group">
+                        <div class="choice-item"><input type="radio" id="usage-no-decision" name="tool_usage" value="no_decision"><label for="usage-no-decision">Ne conduit pas à une prise de décision concernant des personnes</label></div>
+                        <div class="choice-item"><input type="radio" id="usage-help-decision" name="tool_usage" value="help_decision"><label for="usage-help-decision">Constitue une aide à la prise de décision par des agents</label></div>
+                        <div class="choice-item"><input type="radio" id="usage-auto-decision" name="tool_usage" value="auto_decision"><label for="usage-auto-decision">Conduit ou pourrait conduire à prendre des décisions autonomes</label></div>
+                    </div>
+                </div>
+            </fieldset>
+            
+            <fieldset>
+                <legend>Traitement de données</legend>
+                <div class="form-group">
+                    <label>L’activité existante (avant l’IA) est-elle référencée dans le registre des traitements ?</label>
+                    <div class="choice-group">
+                        <div class="choice-item"><input type="radio" id="registry-yes" name="registry" value="yes"><label for="registry-yes">Oui</label></div>
+                        <div class="choice-item"><input type="radio" id="registry-no" name="registry" value="no"><label for="registry-no">Non</label></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                     <label>Des données à caractère personnel alimentent-elles le système d’IA :</label>
+                    <div class="choice-group">
+                        <div class="choice-item"><input type="radio" id="data-yes" name="personal_data" value="yes"><label for="data-yes">Oui</label></div>
+                        <div class="choice-item"><input type="radio" id="data-no" name="personal_data" value="no"><label for="data-no">Non</label></div>
+                    </div>
+                </div>
+                <div id="conditional-personal-data" class="hidden conditional-section">
+                    <label>Pour chaque catégorie de données traitée, cochez la case et précisez si nécessaire :</label>
+                    <div class="data-item"><div class="choice-item"><input type="checkbox" id="data-id" name="data_type" value="identification"><label for="data-id">Identification <span class="tooltip" data-tooltip="Nom, prénom, adresse, photo...">ⓘ</span></label></div><textarea name="details_identification" class="hidden" placeholder="Précisez..."></textarea></div>
+                    <div class="data-item"><div class="choice-item"><input type="checkbox" id="data-contact" name="data_type" value="contact"><label for="data-contact">Coordonnées de contact <span class="tooltip" data-tooltip="Adresse mail, téléphone...">ⓘ</span></label></div><textarea name="details_contact" class="hidden" placeholder="Précisez..."></textarea></div>
+                    <div class="data-item"><div class="choice-item"><input type="checkbox" id="data-perso" name="data_type" value="personal_life"><label for="data-perso">Vie personnelle <span class="tooltip" data-tooltip="Situation maritale, habitudes...">ⓘ</span></label></div><textarea name="details_personal_life" class="hidden" placeholder="Précisez..."></textarea></div>
+                    <div class="data-item"><div class="choice-item"><input type="checkbox" id="data-pro" name="data_type" value="professional_life"><label for="data-pro">Vie professionnelle <span class="tooltip" data-tooltip="CV, diplôme, formation...">ⓘ</span></label></div><textarea name="details_professional_life" class="hidden" placeholder="Précisez..."></textarea></div>
+                    <div class="data-item"><div class="choice-item"><input type="checkbox" id="data-school" name="data_type" value="school_life"><label for="data-school">Vie scolaire <span class="tooltip" data-tooltip="Classe, notes, appréciations...">ⓘ</span></label></div><textarea name="details_school_life" class="hidden" placeholder="Précisez..."></textarea></div>
+                    <div class="data-item"><div class="choice-item"><input type="checkbox" id="data-eco" name="data_type" value="financial"><label for="data-eco">Information économique et financière <span class="tooltip" data-tooltip="RIB, revenus, salaire...">ⓘ</span></label></div><textarea name="details_financial" class="hidden" placeholder="Précisez..."></textarea></div>
+                    <div class="data-item"><div class="choice-item"><input type="checkbox" id="data-conn" name="data_type" value="connection"><label for="data-conn">Données de connexions et traçabilité <span class="tooltip" data-tooltip="Logs, adresse IP, cookies...">ⓘ</span></label></div><textarea name="details_connection" class="hidden" placeholder="Précisez..."></textarea></div>
+                    <div class="data-item"><div class="choice-item"><input type="checkbox" id="data-loc" name="data_type" value="location"><label for="data-loc">Données de localisation <span class="tooltip" data-tooltip="Données GPS, badge...">ⓘ</span></label></div><textarea name="details_location" class="hidden" placeholder="Précisez..."></textarea></div>
+                    <div class="data-item"><div class="choice-item"><input type="checkbox" id="data-natid" name="data_type" value="national_id"><label for="data-natid">Identifiants nationaux <span class="tooltip" data-tooltip="NUMEN, NIR (N° de Sécu)...">ⓘ</span></label></div><textarea name="details_national_id" class="hidden" placeholder="Précisez..."></textarea></div>
+                    <div class="data-item"><div class="choice-item"><input type="checkbox" id="data-health" name="data_type_sensitive" value="health"><label for="data-health" class="sensitive-data-label">Santé, biométrie, génétique <span class="tooltip" data-tooltip="Handicap, suivi psy...">ⓘ</span></label></div><textarea name="details_health" class="hidden" placeholder="Précisez..."></textarea></div>
+                    <div class="data-item"><div class="choice-item"><input type="checkbox" id="data-sex" name="data_type_sensitive" value="sexual_life"><label for="data-sex" class="sensitive-data-label">Vie et orientation sexuelle</label></div><textarea name="details_sexual_life" class="hidden" placeholder="Précisez..."></textarea></div>
+                    <div class="data-item"><div class="choice-item"><input type="checkbox" id="data-crime" name="data_type_sensitive" value="infractions"><label for="data-crime" class="sensitive-data-label">Infractions, condamnations</label></div><textarea name="details_infractions" class="hidden" placeholder="Précisez..."></textarea></div>
+                    <div class="data-item"><div class="choice-item"><input type="checkbox" id="data-origin" name="data_type_sensitive" value="origin"><label for="data-origin" class="sensitive-data-label">Origine raciale ou ethnique</label></div><textarea name="details_origin" class="hidden" placeholder="Précisez..."></textarea></div>
+                    <div class="data-item"><div class="choice-item"><input type="checkbox" id="data-opinion" name="data_type_sensitive" value="opinions"><label for="data-opinion" class="sensitive-data-label">Opinions politiques, philosophiques, religieuses, appartenance syndicale</label></div><textarea name="details_opinions" class="hidden" placeholder="Précisez..."></textarea></div>
+                </div>
+            </fieldset>
+            
+            <fieldset>
+                <legend>Acteurs du projet</legend>
+                <div class="form-group">
+                    <label>Le porteur de projet a-t-il recours à un acteur externe ?</label>
+                     <div class="choice-group">
+                        <div class="choice-item"><input type="radio" id="provider-yes" name="external_provider" value="yes"><label for="provider-yes">Oui</label></div>
+                        <div class="choice-item"><input type="radio" id="provider-no" name="external_provider" value="no"><label for="provider-no">Non</label></div>
+                    </div>
+                </div>
+                <div id="conditional-provider-details" class="hidden conditional-section">
+                    <div class="form-group"><label for="provider-name">Nom du prestataire :</label><input type="text" id="provider-name" name="provider_name"></div>
+                    <label>Rôle du prestataire :</label>
+                    <div class="choice-group">
+                        <div class="choice-item"><input type="radio" name="provider_role" value="dev" id="role-dev"><label for="role-dev">Conception/développement pour le compte de l’établissement</label></div>
+                        <div class="choice-item"><input type="radio" name="provider_role" value="supply" id="role-supply"><label for="role-supply">Fourniture d’une offre commerciale « sur étagère »</label></div>
+                        <div class="choice-item"><input type="radio" name="provider_role" value="opensource" id="role-opensource"><label for="role-opensource">Utilisation d’une application ou modèle d’IA open source</label></div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset id="conditional-legal-basis" class="hidden conditional-section">
+                 <legend>Base légale du projet</legend>
+                 <p class="conditional-intro">Cette section apparaît car le traitement n'est pas (ou pas encore) référencé dans le registre. Quelle est la base légale du traitement des données ?</p>
+                 <div class="choice-group">
+                     <div class="choice-item"><input type="radio" name="legal_basis" value="text" id="legal-text"><label for="legal-text">Un texte législatif ou réglementaire</label></div>
+                     <div class="choice-item"><input type="radio" name="legal_basis" value="consent" id="legal-consent"><label for="legal-consent">Le consentement des personnes concernées</label></div>
+                     <div class="choice-item"><input type="radio" name="legal_basis" value="contract" id="legal-contract"><label for="legal-contract">Un contrat passé avec les personnes concernées</label></div>
+                 </div>
+            </fieldset>
+            
+            <fieldset>
+                <legend>Qualification du risque</legend>
+                <div class="form-group">
+                    <label>Le projet a pour but ou pour effet :</label>
+                    <div class="choice-group">
+                        <div class="choice-item"><input type="checkbox" id="risk-scoring" name="risk" value="scoring"><label for="risk-scoring">L’évaluation ou le scoring de personnes <span class="tooltip" data-tooltip="Y compris le profilage et la prédiction sur le rendement au travail, la situation économique, la santé, les préférences, la fiabilité, le comportement, la localisation, etc.">ⓘ</span></label></div>
+                        <div class="choice-item"><input type="checkbox" id="risk-auto-decision-legal" name="risk" value="auto_decision_legal"><label for="risk-auto-decision-legal">La prise de décision automatique avec effet légal ou similaire <span class="tooltip" data-tooltip="Traitement visant à prendre des décisions produisant des effets juridiques (ex: refuser un droit) ou affectant une personne de manière significative.">ⓘ</span></label></div>
+                        <div class="choice-item"><input type="checkbox" id="risk-monitoring" name="risk" value="monitoring"><label for="risk-monitoring">La surveillance systématique de personnes <span class="tooltip" data-tooltip="Traitement utilisé pour observer, surveiller ou contrôler les personnes concernées, y compris dans une zone accessible au public.">ⓘ</span></label></div>
+                        <div class="choice-item"><input type="checkbox" id="risk-sensitive-data" name="risk" value="sensitive_data"><label for="risk-sensitive-data">La collecte de données sensibles ou à caractère hautement personnel</label></div>
+                        <div class="choice-item"><input type="checkbox" id="risk-vulnerable" name="risk" value="vulnerable"><label for="risk-vulnerable">Le traitement de données de personnes vulnérables <span class="tooltip" data-tooltip="Le déséquilibre des pouvoirs entre le responsable de traitement et la personne (enfants, employés, etc.) rend difficile le refus du traitement de leurs données.">ⓘ</span></label></div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <div id="conditional-high-risk-section" class="hidden">
+                <fieldset class="high-risk-fieldset">
+                     <legend>Finalités à Haut Risque</legend>
+                     <p class="conditional-intro">Le projet semble relever de la catégorie "haut risque". Veuillez préciser si l'IA est utilisée pour l'une des finalités suivantes :</p>
+                     <div class="choice-group">
+                        <div class="choice-item"><input type="checkbox" name="hr_purpose" value="affectation_eleves" id="hr-affectation"><label for="hr-affectation">Déterminer l'affectation des élèves à des établissements</label></div>
+                        <div class="choice-item"><input type="checkbox" name="hr_purpose" value="evaluation_eleves" id="hr-evaluation"><label for="hr-evaluation">Évaluer les acquis d'apprentissage et orienter les élèves</label></div>
+                        <div class="choice-item"><input type="checkbox" name="hr_purpose" value="surveillance_examens" id="hr-surveillance"><label for="hr-surveillance">Surveiller et détecter des comportements interdits lors d'examens</label></div>
+                        <div class="choice-item"><input type="checkbox" name="hr_purpose" value="recrutement" id="hr-recrutement"><label for="hr-recrutement">Le recrutement ou la sélection de personnes (analyser, filtrer les candidatures)</label></div>
+                        <div class="choice-item"><input type="checkbox" name="hr_purpose" value="evaluation_pro" id="hr-eval-pro"><label for="hr-eval-pro">Prendre des décisions sur les relations professionnelles (promotion, etc.)</label></div>
+                     </div>
+                </fieldset>
+            </div>
+
+            <button type="submit">Soumettre pour analyse</button>
+        </form>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
