@@ -64,6 +64,36 @@ const openai = new OpenAI({
   baseURL: process.env.OPENAI_BASE_URL,
 });
 
+let availableModel = '';
+
+async function fetchModelName() {
+    try {
+        console.log("Tentative de récupération des modèles d'IA via la bibliothèque OpenAI...");
+        const modelsList = await openai.models.list();
+
+        if (modelsList.data && modelsList.data.length > 0) {
+            // On cherche un modèle qui n'est pas destiné à l'embedding, si possible.
+            const suitableModel = modelsList.data.find(model => !model.id.includes('embed') && model.id.includes('instruct'));
+
+            if (suitableModel) {
+                 availableModel = suitableModel.id;
+            } else {
+                 // Sinon, on prend le premier de la liste (en espérant que ce ne soit pas un modèle d'embedding)
+                 availableModel = modelsList.data[0].id;
+            }
+            console.log(`Modèle d'IA trouvé et configuré : ${availableModel}`);
+        } else {
+            console.error("Aucun modèle d'IA trouvé dans la réponse de l'API. Le serveur ne peut pas continuer.");
+            throw new Error("Aucun modèle d'IA trouvé.");
+        }
+    } catch (error) {
+        console.error("ERREUR CRITIQUE: Impossible de récupérer la liste des modèles d'IA. Le serveur ne peut pas fonctionner sans modèle.", error);
+        // Dans ce cas, il vaut mieux arrêter le processus car aucune analyse ne pourra fonctionner.
+        process.exit(1);
+    }
+}
+
+
 // 3. Configurer le serveur
 app.use(express.static('public'));
 app.use(express.json());
@@ -107,8 +137,11 @@ app.post('/analyze', async (req, res) => {
     `;
 
     // 5. Appeler le LLM
+    if (!availableModel) {
+        return res.status(500).json({ error: "Le modèle d'IA n'est pas configuré. Vérifiez les logs du serveur." });
+    }
     const completion = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
+      model: availableModel,
       messages: [{ role: "user", content: prompt }],
     });
 
@@ -122,6 +155,11 @@ app.post('/analyze', async (req, res) => {
 });
 
 // 7. Démarrer le serveur
-app.listen(port, () => {
-  console.log(`Serveur démarré sur http://localhost:${port}`);
-});
+async function startServer() {
+    await fetchModelName();
+    app.listen(port, () => {
+        console.log(`Serveur démarré sur http://localhost:${port}`);
+    });
+}
+
+startServer();
