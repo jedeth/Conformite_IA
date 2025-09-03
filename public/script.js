@@ -137,33 +137,25 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             if (!response.ok) {
-                throw new Error(`Erreur du serveur: ${response.status} ${response.statusText}`);
+                const errorData = await response.json().catch(() => ({ error: 'Erreur inconnue' }));
+                throw new Error(`Erreur du serveur: ${response.status} ${response.statusText} - ${errorData.error}`);
             }
 
-            const blob = await response.blob();
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.style.display = 'none';
-            a.href = url;
-            // Extraire le nom du fichier de l'en-tête Content-Disposition si possible
-            const disposition = response.headers.get('Content-Disposition');
-            let filename = 'rapport-conformite.txt';
-            if (disposition && disposition.indexOf('attachment') !== -1) {
-                const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
-                const matches = filenameRegex.exec(disposition);
-                if (matches != null && matches[1]) {
-                    filename = matches[1].replace(/['"]/g, '');
-                }
-            }
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            window.URL.revokeObjectURL(url);
-            document.body.removeChild(a);
+            const result = await response.json();
+
+            const analysisSection = document.getElementById('analysis-section');
+            const analysisResultDiv = document.getElementById('analysis-result');
+
+            // Remplace les sauts de ligne par des balises <br> pour un affichage HTML correct
+            analysisResultDiv.innerHTML = result.analysis.replace(/\n/g, '<br>');
+            analysisSection.classList.remove('hidden');
+
+            // Scroller vers la section de l'analyse
+            analysisSection.scrollIntoView({ behavior: 'smooth' });
 
         } catch (error) {
             console.error("Erreur lors de la génération du rapport:", error);
-            alert("Impossible de générer le rapport. Veuillez réessayer.");
+            alert("Impossible de générer le rapport. Vérifiez la console pour plus de détails.");
         } finally {
             submitButton.textContent = 'Soumettre pour analyse';
             submitButton.disabled = false;

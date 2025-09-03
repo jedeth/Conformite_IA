@@ -52,14 +52,16 @@ const QUESTION_MAP = {
 };
 
 
+import 'dotenv/config';
+
 // 1. Initialiser le serveur
 const app = express();
 const port = process.env.PORT || 3000;
 
 // 2. Configurer l'API du LLM
 const openai = new OpenAI({
-  apiKey: process.env.VOTRE_CLE_API,
-  baseURL: "https://api.pawan.krd/v1",
+  apiKey: process.env.OPENAI_API_KEY,
+  baseURL: process.env.OPENAI_BASE_URL,
 });
 
 // 3. Configurer le serveur
@@ -95,13 +97,7 @@ app.post('/analyze', async (req, res) => {
         }
     }
 
-    // --- ÉTAPE INTERMÉDIAIRE : Renvoyer le rapport texte directement ---
-    res.setHeader('Content-Type', 'text/plain');
-    res.setHeader('Content-Disposition', 'attachment; filename=rapport-conformite.txt');
-    res.send(textReport);
-
-    /*
-    // --- Code pour appeler le LLM (temporairement désactivé) ---
+    // --- Code pour appeler le LLM ---
     const prompt = `
       Analyse ce questionnaire de conformité pour un projet utilisant l'IA. 
       Fournis une réponse circonstanciée sur les points de vigilance principaux, 
@@ -118,7 +114,6 @@ app.post('/analyze', async (req, res) => {
 
     // 6. Renvoyer la réponse du LLM au formulaire
     res.json({ analysis: completion.choices[0].message.content });
-    */
 
   } catch (error) {
     console.error("Erreur lors de la génération du rapport:", error);
