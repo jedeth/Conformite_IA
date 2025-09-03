@@ -487,6 +487,24 @@
         </section>
     </main>
 
+    <!-- Modal for model selection -->
+    <div id="model-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Choisir un modèle d'IA</h2>
+            <p>Veuillez sélectionner un modèle pour effectuer l'analyse de conformité.</p>
+            <div class="form-group">
+                <label for="model-select">Modèles disponibles :</label>
+                <select id="model-select" name="model-select">
+                    <!-- Les options seront peuplées par JavaScript -->
+                </select>
+            </div>
+            <div class="modal-actions">
+                <button id="cancel-model-selection" class="button-secondary">Annuler</button>
+                <button id="confirm-model-selection">Lancer l'analyse</button>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>

@@ -64,31 +64,34 @@ const openai = new OpenAI({
   baseURL: process.env.OPENAI_BASE_URL,
 });
 
-let availableModel = '';
+let availableModels = [];
+let defaultModel = '';
 
-async function fetchModelName() {
+async function fetchModels() {
     try {
         console.log("Tentative de récupération des modèles d'IA via la bibliothèque OpenAI...");
         const modelsList = await openai.models.list();
 
         if (modelsList.data && modelsList.data.length > 0) {
-            // On cherche un modèle qui n'est pas destiné à l'embedding, si possible.
-            const suitableModel = modelsList.data.find(model => !model.id.includes('embed') && model.id.includes('instruct'));
+            availableModels = modelsList.data.map(model => ({ id: model.id, owner: model.owned_by }));
+            console.log(`${availableModels.length} modèles d'IA trouvés.`);
+
+            // On cherche un modèle par défaut qui n'est pas destiné à l'embedding, si possible.
+            const suitableModel = availableModels.find(model => !model.id.includes('embed') && model.id.includes('instruct'));
 
             if (suitableModel) {
-                 availableModel = suitableModel.id;
+                 defaultModel = suitableModel.id;
             } else {
-                 // Sinon, on prend le premier de la liste (en espérant que ce ne soit pas un modèle d'embedding)
-                 availableModel = modelsList.data[0].id;
+                 // Sinon, on prend le premier de la liste
+                 defaultModel = availableModels[0].id;
             }
-            console.log(`Modèle d'IA trouvé et configuré : ${availableModel}`);
+            console.log(`Modèle d'IA par défaut configuré : ${defaultModel}`);
         } else {
             console.error("Aucun modèle d'IA trouvé dans la réponse de l'API. Le serveur ne peut pas continuer.");
             throw new Error("Aucun modèle d'IA trouvé.");
         }
     } catch (error) {
         console.error("ERREUR CRITIQUE: Impossible de récupérer la liste des modèles d'IA. Le serveur ne peut pas fonctionner sans modèle.", error);
-        // Dans ce cas, il vaut mieux arrêter le processus car aucune analyse ne pourra fonctionner.
         process.exit(1);
     }
 }
@@ -99,9 +102,18 @@ app.use(express.static('public'));
 app.use(express.json());
 
 // 4. Créer le "pont" pour l'analyse
+// Endpoint pour récupérer les modèles disponibles
+app.get('/api/models', (req, res) => {
+    if (availableModels.length > 0) {
+        res.json(availableModels);
+    } else {
+        res.status(503).json({ error: "La liste des modèles n'est pas encore disponible ou a échoué à charger." });
+    }
+});
+
 app.post('/analyze', async (req, res) => {
   try {
-    const formData = req.body;
+    const { model: selectedModel, ...formData } = req.body;
 
     // --- Générer le rapport textuel ---
     let textReport = "Voici les réponses au questionnaire de conformité IA :\n\n";
@@ -137,11 +149,13 @@ app.post('/analyze', async (req, res) => {
     `;
 
     // 5. Appeler le LLM
-    if (!availableModel) {
+    const modelToUse = selectedModel || defaultModel;
+    if (!modelToUse) {
         return res.status(500).json({ error: "Le modèle d'IA n'est pas configuré. Vérifiez les logs du serveur." });
     }
+    console.log(`Utilisation du modèle : ${modelToUse} pour l'analyse.`);
     const completion = await openai.chat.completions.create({
-      model: availableModel,
+      model: modelToUse,
       messages: [{ role: "user", content: prompt }],
     });
 
@@ -156,7 +170,7 @@ app.post('/analyze', async (req, res) => {
 
 // 7. Démarrer le serveur
 async function startServer() {
-    await fetchModelName();
+    await fetchModels();
     app.listen(port, () => {
         console.log(`Serveur démarré sur http://localhost:${port}`);
     });

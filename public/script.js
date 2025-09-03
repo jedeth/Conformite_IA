@@ -110,30 +110,30 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // --- Gestion de la soumission du formulaire ---
-    document.getElementById('conformity-form').addEventListener('submit', async function(event) {
-        event.preventDefault();
-        
-        const submitButton = this.querySelector('button[type="submit"]');
+    const form = document.getElementById('conformity-form');
+    const submitButton = form.querySelector('button[type="submit"]');
+    const modal = document.getElementById('model-modal');
+    const modelSelect = document.getElementById('model-select');
+    const confirmButton = document.getElementById('confirm-model-selection');
+    const cancelButton = document.getElementById('cancel-model-selection');
+
+    let currentFormData = null;
+
+    // --- Logique pour lancer l'analyse ---
+    async function triggerAnalysis(selectedModel) {
         submitButton.textContent = 'Génération du rapport...';
         submitButton.disabled = true;
-
-        const formData = new FormData(this);
-        const data = {};
-        formData.forEach((value, key) => {
-            if (!data[key]) {
-                data[key] = value;
-            } else {
-                if (!Array.isArray(data[key])) data[key] = [data[key]];
-                data[key].push(value);
-            }
-        });
         
+        const payload = {
+            ...currentFormData,
+            model: selectedModel
+        };
+
         try {
             const response = await fetch('/analyze', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
+                body: JSON.stringify(payload),
             });
 
             if (!response.ok) {
@@ -146,11 +146,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const analysisSection = document.getElementById('analysis-section');
             const analysisResultDiv = document.getElementById('analysis-result');
 
-            // Remplace les sauts de ligne par des balises <br> pour un affichage HTML correct
             analysisResultDiv.innerHTML = result.analysis.replace(/\n/g, '<br>');
             analysisSection.classList.remove('hidden');
-
-            // Scroller vers la section de l'analyse
             analysisSection.scrollIntoView({ behavior: 'smooth' });
 
         } catch (error) {
@@ -159,6 +156,77 @@ document.addEventListener('DOMContentLoaded', function() {
         } finally {
             submitButton.textContent = 'Soumettre pour analyse';
             submitButton.disabled = false;
+            currentFormData = null; // Reset form data
         }
+    }
+
+    // --- Logique pour ouvrir et peupler la modale ---
+    async function openModelModal() {
+        try {
+            const response = await fetch('/api/models');
+            if (!response.ok) {
+                throw new Error('Impossible de charger la liste des modèles.');
+            }
+            const models = await response.json();
+
+            modelSelect.innerHTML = ''; // Vider les anciennes options
+            models.forEach(model => {
+                const option = document.createElement('option');
+                option.value = model.id;
+                option.textContent = `${model.id} (Propriétaire: ${model.owner})`;
+                modelSelect.appendChild(option);
+            });
+
+            modal.classList.remove('hidden');
+
+        } catch (error) {
+            console.error(error);
+            alert(error.message);
+            // Si on ne peut pas charger les modèles, on peut décider de lancer l'analyse avec le modèle par défaut
+            // ou simplement afficher une erreur. Pour l'instant, on arrête.
+            submitButton.textContent = 'Soumettre pour analyse';
+            submitButton.disabled = false;
+        }
+    }
+
+    // --- Gestionnaires d'événements ---
+
+    // Soumission du formulaire principal
+    form.addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        submitButton.textContent = 'Chargement des modèles...';
+        submitButton.disabled = true;
+
+        const formData = new FormData(this);
+        const data = {};
+        formData.forEach((value, key) => {
+            if (!data[key]) {
+                data[key] = value;
+            } else {
+                if (!Array.isArray(data[key])) data[key] = [data[key]];
+                data[key].push(value);
+            }
+        });
+        currentFormData = data; // Stocker les données du formulaire
+
+        openModelModal();
+    });
+
+    // Clic sur le bouton de confirmation de la modale
+    confirmButton.addEventListener('click', () => {
+        const selectedModel = modelSelect.value;
+        if (selectedModel) {
+            modal.classList.add('hidden');
+            triggerAnalysis(selectedModel);
+        }
+    });
+
+    // Clic sur le bouton d'annulation de la modale
+    cancelButton.addEventListener('click', () => {
+        modal.classList.add('hidden');
+        submitButton.textContent = 'Soumettre pour analyse';
+        submitButton.disabled = false;
+        currentFormData = null;
     });
 });
