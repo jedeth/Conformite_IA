@@ -116,13 +116,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const modelSelect = document.getElementById('model-select');
     const confirmButton = document.getElementById('confirm-model-selection');
     const cancelButton = document.getElementById('cancel-model-selection');
+    const reportDownloadArea = document.getElementById('report-download-area');
+    const downloadLink = document.getElementById('download-report-link');
 
     let currentFormData = null;
 
-    // --- Logique pour lancer l'analyse ---
+    // --- Logique pour lancer l'analyse finale avec le LLM ---
     async function triggerAnalysis(selectedModel) {
-        submitButton.textContent = 'Génération du rapport...';
+        submitButton.textContent = 'Analyse en cours...';
         submitButton.disabled = true;
+        reportDownloadArea.classList.add('hidden'); // Cacher la zone de téléchargement
         
         const payload = {
             ...currentFormData,
@@ -151,12 +154,37 @@ document.addEventListener('DOMContentLoaded', function() {
             analysisSection.scrollIntoView({ behavior: 'smooth' });
 
         } catch (error) {
-            console.error("Erreur lors de la génération du rapport:", error);
-            alert("Impossible de générer le rapport. Vérifiez la console pour plus de détails.");
+            console.error("Erreur lors de la génération de l'analyse:", error);
+            alert("Impossible de générer l'analyse. Vérifiez la console pour plus de détails.");
         } finally {
             submitButton.textContent = 'Soumettre pour analyse';
             submitButton.disabled = false;
             currentFormData = null; // Reset form data
+        }
+    }
+
+    // --- Logique pour générer le rapport textuel AVANT l'analyse ---
+    async function generateAndShowReport(formData) {
+        try {
+            const response = await fetch('/api/generate-report', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData),
+            });
+            if (!response.ok) {
+                throw new Error('La génération du rapport a échoué.');
+            }
+            const result = await response.json();
+
+            if (result.report) {
+                const blob = new Blob([result.report], { type: 'text/plain;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                downloadLink.href = url;
+                reportDownloadArea.classList.remove('hidden');
+            }
+        } catch (error) {
+            console.error("Erreur lors de la génération du rapport:", error);
+            // Ne pas bloquer l'utilisateur, il peut quand même continuer vers l'analyse
         }
     }
 
@@ -182,8 +210,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } catch (error) {
             console.error(error);
             alert(error.message);
-            // Si on ne peut pas charger les modèles, on peut décider de lancer l'analyse avec le modèle par défaut
-            // ou simplement afficher une erreur. Pour l'instant, on arrête.
+            // Si on ne peut pas charger les modèles, on arrête le processus
             submitButton.textContent = 'Soumettre pour analyse';
             submitButton.disabled = false;
         }
@@ -195,7 +222,7 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', async function(event) {
         event.preventDefault();
 
-        submitButton.textContent = 'Chargement des modèles...';
+        submitButton.textContent = 'Préparation...';
         submitButton.disabled = true;
 
         const formData = new FormData(this);
@@ -208,8 +235,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 data[key].push(value);
             }
         });
-        currentFormData = data; // Stocker les données du formulaire
+        currentFormData = data;
 
+        // Lancer la génération du rapport en arrière-plan
+        generateAndShowReport(currentFormData);
+
+        // Ouvrir la modale pour le choix du modèle
         openModelModal();
     });
 
@@ -218,13 +249,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const selectedModel = modelSelect.value;
         if (selectedModel) {
             modal.classList.add('hidden');
-            triggerAnalysis(selectedModel);
+            triggerAnalysis(selectedModel); // Lancer l'analyse finale
         }
     });
 
     // Clic sur le bouton d'annulation de la modale
     cancelButton.addEventListener('click', () => {
         modal.classList.add('hidden');
+        reportDownloadArea.classList.add('hidden'); // Cacher aussi la zone de téléchargement
         submitButton.textContent = 'Soumettre pour analyse';
         submitButton.disabled = false;
         currentFormData = null;

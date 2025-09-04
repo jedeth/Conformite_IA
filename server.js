@@ -111,6 +111,39 @@ app.get('/api/models', (req, res) => {
     }
 });
 
+// Endpoint pour générer le rapport textuel seul
+app.post('/api/generate-report', (req, res) => {
+    try {
+        const formData = req.body;
+        let textReport = "Voici les réponses au questionnaire de conformité IA :\n\n";
+
+        for (const key in formData) {
+            if (Object.hasOwnProperty.call(formData, key)) {
+                const value = formData[key];
+
+                if (key.startsWith('details_') && !value) {
+                    continue;
+                }
+
+                const question = QUESTION_MAP[key] || key;
+                let answer = Array.isArray(value) ? value.join(', ') : value;
+
+                if(key.startsWith('details_')) {
+                    const parentKey = key.replace('details_', '');
+                    const parentQuestion = Object.entries(QUESTION_MAP).find(([qKey, qValue]) => qValue.toLowerCase().includes(parentKey));
+                    textReport += `Précisions pour la question "${parentQuestion ? parentQuestion[1] : parentKey}" : ${answer}\n\n`;
+                } else {
+                    textReport += `Question : ${question}\nRéponse : ${answer}\n\n`;
+                }
+            }
+        }
+        res.json({ report: textReport });
+    } catch (error) {
+        console.error("Erreur lors de la génération du rapport textuel seul:", error);
+        res.status(500).json({ error: "Une erreur est survenue lors de la génération du rapport." });
+    }
+});
+
 app.post('/analyze', async (req, res) => {
   try {
     const { model: selectedModel, ...formData } = req.body;
