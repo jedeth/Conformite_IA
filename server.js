@@ -71,7 +71,7 @@ app.post('/analyze', async (req, res) => {
   try {
     const formData = req.body;
 
-    // --- Générer le rapport textuel ---
+    // --- Générer le rapport textuel pour le LLM ---
     let textReport = "Voici les réponses au questionnaire de conformité IA :\n\n";
 
     for (const key in formData) {
@@ -95,13 +95,7 @@ app.post('/analyze', async (req, res) => {
         }
     }
 
-    // --- ÉTAPE INTERMÉDIAIRE : Renvoyer le rapport texte directement ---
-    res.setHeader('Content-Type', 'text/plain');
-    res.setHeader('Content-Disposition', 'attachment; filename=rapport-conformite.txt');
-    res.send(textReport);
-
-    /*
-    // --- Code pour appeler le LLM (temporairement désactivé) ---
+    // --- Code pour appeler le LLM ---
     const prompt = `
       Analyse ce questionnaire de conformité pour un projet utilisant l'IA. 
       Fournis une réponse circonstanciée sur les points de vigilance principaux, 
@@ -118,11 +112,10 @@ app.post('/analyze', async (req, res) => {
 
     // 6. Renvoyer la réponse du LLM au formulaire
     res.json({ analysis: completion.choices[0].message.content });
-    */
 
   } catch (error) {
-    console.error("Erreur lors de la génération du rapport:", error);
-    res.status(500).json({ error: "Une erreur est survenue lors de la génération du rapport." });
+    console.error("Erreur lors de l'appel à l'API du LLM:", error);
+    res.status(500).json({ error: "Une erreur est survenue lors de l'analyse." });
   }
 });
 
