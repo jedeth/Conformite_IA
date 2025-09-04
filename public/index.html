@@ -16,24 +16,30 @@
         <form id="conformity-form">
 
             <fieldset>
-                <legend>Description du projet</legend>
-                <div class="form-group"><label for="project-name">Nom du Projet :</label><input type="text" id="project-name" name="project_name" required></div>
+                <legend>1. Description du projet</legend>
                 <div class="form-group">
-                    <label>Le projet nécessitant l’utilisation d’une IA a pour objectif :</label>
+                    <label for="project-name">Nom du Projet :</label>
+                    <input type="text" id="project-name" name="project_name" required>
+                </div>
+                <div class="form-group">
+                    <label>1.1. Le projet nécessitant l’utilisation d’une IA a pour objectif :</label>
                     <div class="choice-group">
-                        <div class="choice-item"><input type="radio" id="obj-admin" name="project_objective" value="gestion_administrative"><label for="obj-admin">La gestion administrative <span class="tooltip" data-tooltip="Exemples : Gestion de la paie, recrutement, comptabilité, sécurité des biens et des personnes, etc.">ⓘ</span></label></div>
-                        <div class="choice-item"><input type="radio" id="obj-pedago" name="project_objective" value="projet_pedagogique"><label for="obj-pedago">Un projet pédagogique <span class="tooltip" data-tooltip="Exemples : Création de supports de cours, évaluation des élèves, correction des devoirs, etc.">ⓘ</span></label></div>
-                        <div class="choice-item"><input type="radio" id="obj-recherche" name="project_objective" value="recherche_scientifique"><label for="obj-recherche">Uniquement la recherche et/ou le développement scientifiques</label></div>
+                        <div class="choice-item"><input type="radio" id="obj-admin" name="project_objective" value="gestion_administrative"><label for="obj-admin">La gestion administrative <span class="tooltip" data-tooltip="Exemples : Gestion de la paie, gestion du recrutement, comptabilité, gestion du personnel, sécurité des biens et des personnes, recherches réglementaires etc.">ⓘ</span></label></div>
+                        <div class="choice-item"><input type="radio" id="obj-pedago" name="project_objective" value="projet_pedagogique"><label for="obj-pedago">Un projet pédagogique <span class="tooltip" data-tooltip="Exemples : Création de supports de cours, évaluation des élèves, correction des devoirs/examens, évaluation du niveau, évaluation des enseignements etc.">ⓘ</span></label></div>
+                        <div class="choice-item"><input type="radio" id="obj-recherche" name="project_objective" value="recherche_scientifique"><label for="obj-recherche">Uniquement la recherche et/ou le développement scientifiques.</label></div>
+                        <div class="choice-item"><input type="radio" id="obj-recherche-dev" name="project_objective" value="recherche_developpement_pre_prod"><label for="obj-recherche-dev">La recherche, l’essai et le développement relatifs aux systèmes d’IA ou aux modèles d’IA avant leur mise sur le marché ou leur mise en service, hors essais en conditions réelles.</label></div>
                     </div>
                 </div>
-                <div class="form-group"><label for="project-activity">Décrire l’activité ou le service dans lequel l’IA vient s’intégrer et sa(ses) finalité(s) :</label><textarea id="project-activity" name="project_activity" rows="3"></textarea></div>
-                <div class="form-group"><label for="project-role-ia">Décrire le rôle de l’IA dans l’activité ou le service rendu :</label><textarea id="project-role-ia" name="project_role_ia" rows="3"></textarea></div>
-            </fieldset>
-
-            <fieldset>
-                <legend>Analyse de l'outil</legend>
                 <div class="form-group">
-                    <label>A quelle catégorie appartient l’outil (service ou application) utilisé :</label>
+                    <label for="project-activity">1.2. Décrire l’activité ou le service dans lequel l’IA vient s’intégrer et sa(ses) finalité(s) :</label>
+                    <textarea id="project-activity" name="project_activity" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="project-role-ia">Décrire le rôle de l’IA dans l’activité ou le service rendu :</label>
+                    <textarea id="project-role-ia" name="project_role_ia" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>1.3. A quelle catégorie appartient l’outil (service ou application) utilisé :</label>
                     <div class="choice-group">
                         <div class="choice-item"><input type="radio" id="tool-ia" name="tool_category" value="ia"><label for="tool-ia">L’outil utilise un ou des systèmes à base d’IA</label></div>
                         <div class="choice-item"><input type="radio" id="tool-classic" name="tool_category" value="classic"><label for="tool-classic">L’outil utilise un logiciel reposant sur un algorithme classique</label></div>
@@ -41,120 +47,463 @@
                     </div>
                 </div>
                 <div id="conditional-tool-unknown" class="hidden conditional-section">
-                    <p class="conditional-intro">Pour nous aider à déterminer la nature de l'outil, pouvez-vous préciser s'il correspond à l'une de ces descriptions ?</p>
+                    <p class="conditional-intro">[Si « Je ne sais pas »] Ne cochez que les cases correspondant à l’outil utilisé :</p>
                     <div class="choice-group">
                         <div class="choice-item"><input type="checkbox" id="feature-autonomy" name="tool_feature" value="autonomy"><label for="feature-autonomy">L’outil dispose d’une autonomie importante</label></div>
-                        <div class="choice-item"><input type="checkbox" id="feature-explain" name="tool_feature" value="explainability"><label for="feature-explain">Les résultats/réponses fournis sont difficilement explicables</label></div>
-                        <div class="choice-item"><input type="checkbox" id="feature-learning" name="tool_feature" value="learning"><label for="feature-learning">L’outil a une capacité d’apprentissage et d’adaptation</label></div>
-                        <div class="choice-item"><input type="checkbox" id="feature-generation" name="tool_feature" value="generation"><label for="feature-generation">L’outil génère automatiquement du contenu</label></div>
+                        <div class="choice-item"><input type="checkbox" id="feature-explain" name="tool_feature" value="explainability"><label for="feature-explain">Les résultats réponses fournies par l’outil sont difficilement explicables</label></div>
+                        <div class="choice-item"><input type="checkbox" id="feature-learning" name="tool_feature" value="learning"><label for="feature-learning">L’outil a une capacité d’apprentissage et d’adaptation aux situations</label></div>
+                        <div class="choice-item"><input type="checkbox" id="feature-evolution" name="tool_feature" value="evolution"><label for="feature-evolution">Les capacités de l’outil pour répondre aux besoins peuvent évoluer automatiquement</label></div>
+                        <div class="choice-item"><input type="checkbox" id="feature-generation" name="tool_feature" value="generation"><label for="feature-generation">L’outil a la capacité à générer automatiquement du texte, de l’image, de la vidéo ou du son</label></div>
+                        <div class="choice-item"><input type="checkbox" id="feature-humanlike" name="tool_feature" value="humanlike"><label for="feature-humanlike">L’outil reproduit des comportements ou des réflexions humaines</label></div>
+                        <div class="choice-item"><input type="checkbox" id="feature-none" name="tool_feature" value="none"><label for="feature-none">Aucune de ces réponses</label></div>
+                        <div class="choice-item"><input type="checkbox" id="feature-unknown-bis" name="tool_feature" value="unknown"><label for="feature-unknown-bis">Je ne sais pas</label></div>
                     </div>
                 </div>
                  <div class="form-group">
-                    <label>L’utilisation de l’outil :</label>
+                    <label>1.4. L’utilisation de l’outil :</label>
                     <div class="choice-group">
-                        <div class="choice-item"><input type="radio" id="usage-no-decision" name="tool_usage" value="no_decision"><label for="usage-no-decision">Ne conduit pas à une prise de décision concernant des personnes</label></div>
+                        <div class="choice-item"><input type="radio" id="usage-no-decision" name="tool_usage" value="no_decision"><label for="usage-no-decision">Ne conduit pas à une prise de décision concernant des agents ou des usagers (élèves, parents d’élèves…)</label></div>
                         <div class="choice-item"><input type="radio" id="usage-help-decision" name="tool_usage" value="help_decision"><label for="usage-help-decision">Constitue une aide à la prise de décision par des agents</label></div>
-                        <div class="choice-item"><input type="radio" id="usage-auto-decision" name="tool_usage" value="auto_decision"><label for="usage-auto-decision">Conduit ou pourrait conduire à prendre des décisions autonomes</label></div>
+                        <div class="choice-item"><input type="radio" id="usage-auto-decision" name="tool_usage" value="auto_decision"><label for="usage-auto-decision">Conduit ou pourrait conduire à prendre des décisions autonomes, sans que l’intervention d’un agent soit nécessaire</label></div>
+                        <div class="choice-item"><input type="radio" id="usage-unknown" name="tool_usage" value="unknown"><label for="usage-unknown">Je ne sais pas</label></div>
                     </div>
                 </div>
             </fieldset>
             
             <fieldset>
-                <legend>Traitement de données</legend>
+                <legend>2. Traitement de données à caractère personnel et de données sensibles</legend>
                 <div class="form-group">
-                    <label>L’activité existante (avant l’IA) est-elle référencée dans le registre des traitements ?</label>
+                    <label>2.1. L’activité existante avant d’y inclure de l’IA est-elle référencée dans le registre des activités de traitement du rectorat ou de l’EPLE ?</label>
                     <div class="choice-group">
                         <div class="choice-item"><input type="radio" id="registry-yes" name="registry" value="yes"><label for="registry-yes">Oui</label></div>
                         <div class="choice-item"><input type="radio" id="registry-no" name="registry" value="no"><label for="registry-no">Non</label></div>
                     </div>
+                    <div id="conditional-registry-ref" class="hidden conditional-section">
+                        <label for="registry-ref-text">Référence du traitement :</label>
+                        <input type="text" id="registry-ref-text" name="registry_ref_text">
+                    </div>
                 </div>
                 <div class="form-group">
-                     <label>Des données à caractère personnel alimentent-elles le système d’IA :</label>
+                     <label>2.2. Des données à caractère personnel alimentent-elles le système d’IA :</label>
                     <div class="choice-group">
                         <div class="choice-item"><input type="radio" id="data-yes" name="personal_data" value="yes"><label for="data-yes">Oui</label></div>
                         <div class="choice-item"><input type="radio" id="data-no" name="personal_data" value="no"><label for="data-no">Non</label></div>
+                        <div class="choice-item"><input type="radio" id="data-unknown" name="personal_data" value="unknown"><label for="data-unknown">Je ne sais pas</label></div>
                     </div>
                 </div>
                 <div id="conditional-personal-data" class="hidden conditional-section">
-                    <label>Pour chaque catégorie de données traitée, cochez la case et précisez si nécessaire :</label>
-                    <div class="data-item"><div class="choice-item"><input type="checkbox" id="data-id" name="data_type" value="identification"><label for="data-id">Identification <span class="tooltip" data-tooltip="Nom, prénom, adresse, photo...">ⓘ</span></label></div><textarea name="details_identification" class="hidden" placeholder="Précisez..."></textarea></div>
-                    <div class="data-item"><div class="choice-item"><input type="checkbox" id="data-contact" name="data_type" value="contact"><label for="data-contact">Coordonnées de contact <span class="tooltip" data-tooltip="Adresse mail, téléphone...">ⓘ</span></label></div><textarea name="details_contact" class="hidden" placeholder="Précisez..."></textarea></div>
-                    <div class="data-item"><div class="choice-item"><input type="checkbox" id="data-perso" name="data_type" value="personal_life"><label for="data-perso">Vie personnelle <span class="tooltip" data-tooltip="Situation maritale, habitudes...">ⓘ</span></label></div><textarea name="details_personal_life" class="hidden" placeholder="Précisez..."></textarea></div>
-                    <div class="data-item"><div class="choice-item"><input type="checkbox" id="data-pro" name="data_type" value="professional_life"><label for="data-pro">Vie professionnelle <span class="tooltip" data-tooltip="CV, diplôme, formation...">ⓘ</span></label></div><textarea name="details_professional_life" class="hidden" placeholder="Précisez..."></textarea></div>
-                    <div class="data-item"><div class="choice-item"><input type="checkbox" id="data-school" name="data_type" value="school_life"><label for="data-school">Vie scolaire <span class="tooltip" data-tooltip="Classe, notes, appréciations...">ⓘ</span></label></div><textarea name="details_school_life" class="hidden" placeholder="Précisez..."></textarea></div>
-                    <div class="data-item"><div class="choice-item"><input type="checkbox" id="data-eco" name="data_type" value="financial"><label for="data-eco">Information économique et financière <span class="tooltip" data-tooltip="RIB, revenus, salaire...">ⓘ</span></label></div><textarea name="details_financial" class="hidden" placeholder="Précisez..."></textarea></div>
-                    <div class="data-item"><div class="choice-item"><input type="checkbox" id="data-conn" name="data_type" value="connection"><label for="data-conn">Données de connexions et traçabilité <span class="tooltip" data-tooltip="Logs, adresse IP, cookies...">ⓘ</span></label></div><textarea name="details_connection" class="hidden" placeholder="Précisez..."></textarea></div>
-                    <div class="data-item"><div class="choice-item"><input type="checkbox" id="data-loc" name="data_type" value="location"><label for="data-loc">Données de localisation <span class="tooltip" data-tooltip="Données GPS, badge...">ⓘ</span></label></div><textarea name="details_location" class="hidden" placeholder="Précisez..."></textarea></div>
-                    <div class="data-item"><div class="choice-item"><input type="checkbox" id="data-natid" name="data_type" value="national_id"><label for="data-natid">Identifiants nationaux <span class="tooltip" data-tooltip="NUMEN, NIR (N° de Sécu)...">ⓘ</span></label></div><textarea name="details_national_id" class="hidden" placeholder="Précisez..."></textarea></div>
-                    <div class="data-item"><div class="choice-item"><input type="checkbox" id="data-health" name="data_type_sensitive" value="health"><label for="data-health" class="sensitive-data-label">Santé, biométrie, génétique <span class="tooltip" data-tooltip="Handicap, suivi psy...">ⓘ</span></label></div><textarea name="details_health" class="hidden" placeholder="Précisez..."></textarea></div>
-                    <div class="data-item"><div class="choice-item"><input type="checkbox" id="data-sex" name="data_type_sensitive" value="sexual_life"><label for="data-sex" class="sensitive-data-label">Vie et orientation sexuelle</label></div><textarea name="details_sexual_life" class="hidden" placeholder="Précisez..."></textarea></div>
-                    <div class="data-item"><div class="choice-item"><input type="checkbox" id="data-crime" name="data_type_sensitive" value="infractions"><label for="data-crime" class="sensitive-data-label">Infractions, condamnations</label></div><textarea name="details_infractions" class="hidden" placeholder="Précisez..."></textarea></div>
-                    <div class="data-item"><div class="choice-item"><input type="checkbox" id="data-origin" name="data_type_sensitive" value="origin"><label for="data-origin" class="sensitive-data-label">Origine raciale ou ethnique</label></div><textarea name="details_origin" class="hidden" placeholder="Précisez..."></textarea></div>
-                    <div class="data-item"><div class="choice-item"><input type="checkbox" id="data-opinion" name="data_type_sensitive" value="opinions"><label for="data-opinion" class="sensitive-data-label">Opinions politiques, philosophiques, religieuses, appartenance syndicale</label></div><textarea name="details_opinions" class="hidden" placeholder="Précisez..."></textarea></div>
+                    <label>2.3. [Si "Oui" ou "Je ne sais pas"] Cochez les catégories de données traitées par l’IA :</label>
+                    <div class="data-item">
+                        <div class="choice-item"><input type="checkbox" id="data-id" name="data_type" value="identification"><label for="data-id">Identification <span class="tooltip" data-tooltip="Exemples : Nom, prénom, adresse, numéro de téléphone, identifiant, pseudo, photo, enregistrement sonore, état civil, identité, parents, identité conjoint, identité enfants, sexes, dates de naissance, nationalité, …">ⓘ</span></label></div>
+                        <textarea name="details_identification" class="hidden" placeholder="Précisez les données d'identification traitées..."></textarea>
+                    </div>
+                    <div class="data-item">
+                        <div class="choice-item"><input type="checkbox" id="data-contact" name="data_type" value="contact"><label for="data-contact">Coordonnées de contact <span class="tooltip" data-tooltip="Exemples : Adresse postale, adresse mail, téléphone fixe, téléphone portable, …">ⓘ</span></label></div>
+                        <textarea name="details_contact" class="hidden" placeholder="Précisez les coordonnées traitées..."></textarea>
+                    </div>
+                    <div class="data-item">
+                        <div class="choice-item"><input type="checkbox" id="data-perso" name="data_type" value="personal_life"><label for="data-perso">Vie personnelle <span class="tooltip" data-tooltip="Exemples : Situation maritale, nombre d’enfants ou de personnes âgées à charge, habitudes de vie, hobbys, …">ⓘ</span></label></div>
+                        <textarea name="details_personal_life" class="hidden" placeholder="Précisez les données de vie personnelle traitées..."></textarea>
+                    </div>
+                    <div class="data-item">
+                        <div class="choice-item"><input type="checkbox" id="data-pro" name="data_type" value="professional_life"><label for="data-pro">Vie professionnelle <span class="tooltip" data-tooltip="Exemples : Profession, employeur, CV, diplôme, formation, distinction, direction, UO, EAEA/EP, numéro d’agent, coefficient, nature du document contractuel, …">ⓘ</span></label></div>
+                        <textarea name="details_professional_life" class="hidden" placeholder="Précisez les données de vie pro traitées..."></textarea>
+                    </div>
+                    <div class="data-item">
+                        <div class="choice-item"><input type="checkbox" id="data-school" name="data_type" value="school_life"><label for="data-school">Vie scolaire <span class="tooltip" data-tooltip="Exemples : Etablissement d’enseignement, classe, niveau de l’élève, notes, appréciations, résultats d’évaluation, programme d’exercice ou d’apprentissage spécifique, devoirs / production des élèves, orientation …">ⓘ</span></label></div>
+                        <textarea name="details_school_life" class="hidden" placeholder="Précisez les données scolaires traitées..."></textarea>
+                    </div>
+                    <div class="data-item">
+                        <div class="choice-item"><input type="checkbox" id="data-eco" name="data_type" value="financial"><label for="data-eco">Information d’ordre économique et financier <span class="tooltip" data-tooltip="Exemples : Coordonnées bancaires, RIB, revenue, situation fiscale, salaire, aides sociales, aides au logement, …">ⓘ</span></label></div>
+                        <textarea name="details_financial" class="hidden" placeholder="Précisez les données financières traitées..."></textarea>
+                    </div>
+                    <div class="data-item">
+                        <div class="choice-item"><input type="checkbox" id="data-conn" name="data_type" value="connection"><label for="data-conn">Données de connexions et traçabilité <span class="tooltip" data-tooltip="Exemples : Log, horodatage, adresse IP, traçabilité des actions, journaux d’évènements, cookies fonctionnels, …">ⓘ</span></label></div>
+                        <textarea name="details_connection" class="hidden" placeholder="Précisez les données de connexion traitées..."></textarea>
+                    </div>
+                    <div class="data-item">
+                        <div class="choice-item"><input type="checkbox" id="data-loc" name="data_type" value="location"><label for="data-loc">Données de localisation <span class="tooltip" data-tooltip="Exemples : Données GPS, badge, …">ⓘ</span></label></div>
+                        <textarea name="details_location" class="hidden" placeholder="Précisez les données de localisation traitées..."></textarea>
+                    </div>
+                    <div class="data-item">
+                        <div class="choice-item"><input type="checkbox" id="data-other" name="data_type" value="other"><label for="data-other">Autres <span class="tooltip" data-tooltip="Exemples : Zones de commentaires libres, bloc-notes, historique des questions posées, avis, prompt … Attention au traitement de données personnelles alors même que celui-ci n’est pas nécessaire ni souhaité.">ⓘ</span></label></div>
+                        <textarea name="details_other" class="hidden" placeholder="Précisez les autres données traitées..."></textarea>
+                    </div>
+                    <div class="data-item">
+                        <div class="choice-item"><input type="checkbox" id="data-natid" name="data_type" value="national_id"><label for="data-natid">Identifiants nationaux <span class="tooltip" data-tooltip="Exemples : NUMEN, NIR (numéro de Sécurité sociale), …">ⓘ</span></label></div>
+                        <textarea name="details_national_id" class="hidden" placeholder="Précisez les identifiants nationaux traités..."></textarea>
+                    </div>
+                    <hr>
+                    <p class="sensitive-intro">Données sensibles :</p>
+                    <div class="data-item">
+                        <div class="choice-item"><input type="checkbox" id="data-health" name="data_type_sensitive" value="health"><label for="data-health" class="sensitive-data-label">Santé, biométrie et génétique <span class="tooltip" data-tooltip="Exemples : Suivi psychologique, handicap, analyses, forme physique, pathologies, …">ⓘ</span></label></div>
+                        <textarea name="details_health" class="hidden" placeholder="Précisez..."></textarea>
+                    </div>
+                    <div class="data-item">
+                        <div class="choice-item"><input type="checkbox" id="data-sex" name="data_type_sensitive" value="sexual_life"><label for="data-sex" class="sensitive-data-label">Vie et orientation sexuelle <span class="tooltip" data-tooltip="Exemples : Homosexuel, bisexuel, pratiques sexuelles, …">ⓘ</span></label></div>
+                        <textarea name="details_sexual_life" class="hidden" placeholder="Précisez..."></textarea>
+                    </div>
+                    <div class="data-item">
+                        <div class="choice-item"><input type="checkbox" id="data-crime" name="data_type_sensitive" value="infractions"><label for="data-crime" class="sensitive-data-label">Infractions, condamnations ou mesure de sûreté <span class="tooltip" data-tooltip="Exemples : Délits, fraudes, dépôts de plainte, casier judiciaire, jugements, contraventions, …">ⓘ</span></label></div>
+                        <textarea name="details_infractions" class="hidden" placeholder="Précisez..."></textarea>
+                    </div>
+                    <div class="data-item">
+                        <div class="choice-item"><input type="checkbox" id="data-origin" name="data_type_sensitive" value="origin"><label for="data-origin" class="sensitive-data-label">Origine raciale ou ethnique <span class="tooltip" data-tooltip="Exemples : Couleurs de peau, traditions, …">ⓘ</span></label></div>
+                        <textarea name="details_origin" class="hidden" placeholder="Précisez..."></textarea>
+                    </div>
+                    <div class="data-item">
+                        <div class="choice-item"><input type="checkbox" id="data-opinion" name="data_type_sensitive" value="opinions"><label for="data-opinion" class="sensitive-data-label">Opinions politiques, philosophiques, convictions religieuses ou appartenance syndicale</label></div>
+                        <textarea name="details_opinions" class="hidden" placeholder="Précisez..."></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>2.4. Le projet traite-t-il ou vise-t-il à produire les données suivantes :</label>
+                    <div class="choice-group">
+                        <div class="choice-item"><input type="checkbox" id="data-secret" name="data_special" value="secret"><label for="data-secret">les données qui relèvent de secrets protégés par la loi <span class="tooltip" data-tooltip="Par exemple, les secrets liés aux délibérations des autorités relevant du pouvoir exécutif, à la vie privée, au secret médical, des affaires…">ⓘ</span></label></div>
+                        <div class="choice-item"><input type="checkbox" id="data-mission" name="data_special" value="mission"><label for="data-mission">les données nécessaires à l’accomplissement des missions essentielles de l’État <span class="tooltip" data-tooltip="Notamment la sauvegarde de la sécurité nationale, le maintien de l’ordre public et la protection de la santé et de la vie des personnes.">ⓘ</span></label></div>
+                    </div>
                 </div>
             </fieldset>
             
             <fieldset>
-                <legend>Acteurs du projet</legend>
+                <legend>3. Acteurs du projet intégrant une IA</legend>
                 <div class="form-group">
-                    <label>Le porteur de projet a-t-il recours à un acteur externe ?</label>
+                    <label>3.1. Le projet a vocation à être mis en œuvre par [choix multiples]:</label>
+                    <div class="choice-group">
+                        <div class="choice-item"><input type="checkbox" id="actor-service" name="project_actor" value="service_academique"><label for="actor-service">Un service académique</label></div>
+                        <div class="choice-item"><input type="checkbox" id="actor-eple" name="project_actor" value="eple"><label for="actor-eple">Un EPLE</label></div>
+                        <div class="choice-item"><input type="checkbox" id="actor-ecole" name="project_actor" value="ecole"><label for="actor-ecole">Une école</label></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>3.2. Le porteur de projet a-t-il recours à un acteur, organisme ou prestataire externe ?</label>
                      <div class="choice-group">
                         <div class="choice-item"><input type="radio" id="provider-yes" name="external_provider" value="yes"><label for="provider-yes">Oui</label></div>
                         <div class="choice-item"><input type="radio" id="provider-no" name="external_provider" value="no"><label for="provider-no">Non</label></div>
                     </div>
                 </div>
-                <div id="conditional-provider-details" class="hidden conditional-section">
-                    <div class="form-group"><label for="provider-name">Nom du prestataire :</label><input type="text" id="provider-name" name="provider_name"></div>
-                    <label>Rôle du prestataire :</label>
+                <div id="conditional-provider-yes" class="hidden conditional-section">
+                    <div class="form-group">
+                        <label for="provider-name">Nom de l’acteur ou du prestataire :</label>
+                        <input type="text" id="provider-name" name="provider_name">
+                    </div>
+                    <label>Rôle de l’acteur ou prestataire :</label>
                     <div class="choice-group">
-                        <div class="choice-item"><input type="radio" name="provider_role" value="dev" id="role-dev"><label for="role-dev">Conception/développement pour le compte de l’établissement</label></div>
-                        <div class="choice-item"><input type="radio" name="provider_role" value="supply" id="role-supply"><label for="role-supply">Fourniture d’une offre commerciale « sur étagère »</label></div>
-                        <div class="choice-item"><input type="radio" name="provider_role" value="opensource" id="role-opensource"><label for="role-opensource">Utilisation d’une application ou modèle d’IA open source</label></div>
+                        <div class="choice-item"><input type="radio" name="provider_role" value="dev" id="role-dev"><label for="role-dev">Conception et/ou développement et/ou entrainement de l’IA pour le compte de l’EPLE, du ministère ou du service académique</label></div>
+                        <div class="choice-item"><input type="radio" name="provider_role" value="supply" id="role-supply"><label for="role-supply">Fourniture d’une offre commerciale, d’un logiciel ou d’une application « sur étagère » ou clé en main, intégrant une IA propriétaire</label></div>
+                        <div class="choice-item"><input type="radio" name="provider_role" value="opensource" id="role-opensource"><label for="role-opensource">Utilisation d’une application, d’un logiciel, d’un modèle d’IA open source développé par un acteur externe</label></div>
+                        <div class="choice-item"><input type="radio" name="provider_role" value="other" id="role-other"><label for="role-other">Autre</label></div>
+                    </div>
+                    <div id="conditional-provider-role-other" class="hidden conditional-section">
+                        <label for="provider-role-other-details">Préciser le rôle de l’acteur externe :</label>
+                        <textarea id="provider-role-other-details" name="provider_role_other_details" rows="2"></textarea>
                     </div>
                 </div>
-            </fieldset>
-
-            <fieldset id="conditional-legal-basis" class="hidden conditional-section">
-                 <legend>Base légale du projet</legend>
-                 <p class="conditional-intro">Cette section apparaît car le traitement n'est pas (ou pas encore) référencé dans le registre. Quelle est la base légale du traitement des données ?</p>
-                 <div class="choice-group">
-                     <div class="choice-item"><input type="radio" name="legal_basis" value="text" id="legal-text"><label for="legal-text">Un texte législatif ou réglementaire</label></div>
-                     <div class="choice-item"><input type="radio" name="legal_basis" value="consent" id="legal-consent"><label for="legal-consent">Le consentement des personnes concernées</label></div>
-                     <div class="choice-item"><input type="radio" name="legal_basis" value="contract" id="legal-contract"><label for="legal-contract">Un contrat passé avec les personnes concernées</label></div>
-                 </div>
-            </fieldset>
-            
-            <fieldset>
-                <legend>Qualification du risque</legend>
+                <div id="conditional-provider-no" class="hidden conditional-section">
+                    <label for="internal-developer">Le service ou l’application intégrant une IA est conçu, développé et entrainé par un service académique, le ministère, un établissement d’enseignement. Précisez l’organisme le cas échéant :</label>
+                    <input type="text" id="internal-developer" name="internal_developer">
+                </div>
                 <div class="form-group">
-                    <label>Le projet a pour but ou pour effet :</label>
+                    <label>3.3. Le porteur de projet :</label>
                     <div class="choice-group">
-                        <div class="choice-item"><input type="checkbox" id="risk-scoring" name="risk" value="scoring"><label for="risk-scoring">L’évaluation ou le scoring de personnes <span class="tooltip" data-tooltip="Y compris le profilage et la prédiction sur le rendement au travail, la situation économique, la santé, les préférences, la fiabilité, le comportement, la localisation, etc.">ⓘ</span></label></div>
-                        <div class="choice-item"><input type="checkbox" id="risk-auto-decision-legal" name="risk" value="auto_decision_legal"><label for="risk-auto-decision-legal">La prise de décision automatique avec effet légal ou similaire <span class="tooltip" data-tooltip="Traitement visant à prendre des décisions produisant des effets juridiques (ex: refuser un droit) ou affectant une personne de manière significative.">ⓘ</span></label></div>
-                        <div class="choice-item"><input type="checkbox" id="risk-monitoring" name="risk" value="monitoring"><label for="risk-monitoring">La surveillance systématique de personnes <span class="tooltip" data-tooltip="Traitement utilisé pour observer, surveiller ou contrôler les personnes concernées, y compris dans une zone accessible au public.">ⓘ</span></label></div>
-                        <div class="choice-item"><input type="checkbox" id="risk-sensitive-data" name="risk" value="sensitive_data"><label for="risk-sensitive-data">La collecte de données sensibles ou à caractère hautement personnel</label></div>
-                        <div class="choice-item"><input type="checkbox" id="risk-vulnerable" name="risk" value="vulnerable"><label for="risk-vulnerable">Le traitement de données de personnes vulnérables <span class="tooltip" data-tooltip="Le déséquilibre des pouvoirs entre le responsable de traitement et la personne (enfants, employés, etc.) rend difficile le refus du traitement de leurs données.">ⓘ</span></label></div>
+                        <div class="choice-item"><input type="radio" id="owner-role-own" name="project_owner_role" value="own_objectives"><label for="owner-role-own">Utilise un système d’IA pour ses propres objectifs ou des finalités</label></div>
+                        <div class="choice-item"><input type="radio" id="owner-role-shared" name="project_owner_role" value="shared_objectives"><label for="owner-role-shared">Utilise un système d’IA pour des objectifs ou finalités communs avec une autre entité</label></div>
+                        <div class="choice-item"><input type="radio" id="owner-role-delegate" name="project_owner_role" value="delegated_objectives"><label for="owner-role-delegate">Agit pour le compte et/ou les besoins et objectifs d’un autre acteur</label></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>3.4. Le porteur de projet a-t-il formé le personnel s’occupant du fonctionnement et/ou utilisant l’IA sous sa responsabilité ?</label>
+                    <div class="choice-group">
+                        <div class="choice-item"><input type="radio" id="training-yes" name="staff_training" value="yes"><label for="training-yes">Oui</label></div>
+                        <div class="choice-item"><input type="radio" id="training-no" name="staff_training" value="no"><label for="training-no">Non</label></div>
+                    </div>
+                    <div id="conditional-training-yes" class="hidden conditional-section">
+                        <label for="training-details">Décrire les actions de formations :</label>
+                        <textarea id="training-details" name="training_details" rows="3"></textarea>
                     </div>
                 </div>
             </fieldset>
 
-            <div id="conditional-high-risk-section" class="hidden">
-                <fieldset class="high-risk-fieldset">
-                     <legend>Finalités à Haut Risque</legend>
-                     <p class="conditional-intro">Le projet semble relever de la catégorie "haut risque". Veuillez préciser si l'IA est utilisée pour l'une des finalités suivantes :</p>
-                     <div class="choice-group">
-                        <div class="choice-item"><input type="checkbox" name="hr_purpose" value="affectation_eleves" id="hr-affectation"><label for="hr-affectation">Déterminer l'affectation des élèves à des établissements</label></div>
-                        <div class="choice-item"><input type="checkbox" name="hr_purpose" value="evaluation_eleves" id="hr-evaluation"><label for="hr-evaluation">Évaluer les acquis d'apprentissage et orienter les élèves</label></div>
-                        <div class="choice-item"><input type="checkbox" name="hr_purpose" value="surveillance_examens" id="hr-surveillance"><label for="hr-surveillance">Surveiller et détecter des comportements interdits lors d'examens</label></div>
-                        <div class="choice-item"><input type="checkbox" name="hr_purpose" value="recrutement" id="hr-recrutement"><label for="hr-recrutement">Le recrutement ou la sélection de personnes (analyser, filtrer les candidatures)</label></div>
-                        <div class="choice-item"><input type="checkbox" name="hr_purpose" value="evaluation_pro" id="hr-eval-pro"><label for="hr-eval-pro">Prendre des décisions sur les relations professionnelles (promotion, etc.)</label></div>
-                     </div>
-                </fieldset>
-            </div>
+            <fieldset id="conditional-privacy-by-design" class="hidden conditional-section">
+                <legend>4. [Si traitement DCP] Privacy by design</legend>
+
+                <div class="form-group">
+                    <label>4.1. Détermination de la phase du projet</label>
+                    <div class="choice-group">
+                        <div class="choice-item"><input type="radio" id="phase-dev" name="project_phase" value="dev"><label for="phase-dev">Conçoit et/ou développe et/ou entraine une IA et la met en service sous son propre nom</label></div>
+                        <div class="choice-item"><input type="radio" id="phase-use" name="project_phase" value="use"><label for="phase-use">Utilise une IA développée par un tiers</label></div>
+                    </div>
+                </div>
+
+                <div id="conditional-phase-dev" class="hidden conditional-section">
+                    <p class="conditional-intro">Actions menées ou prévues lors de la phase de développement :</p>
+                    <div class="choice-group vertical">
+                        <div class="data-item"><div class="choice-item"><input type="checkbox" name="dev_action" value="regime_juridique"><label>Le régime juridique applicable à la phase de développement du projet est défini</label></div><textarea name="details_regime_juridique" class="hidden" placeholder="Décrivez..."></textarea></div>
+                        <div class="data-item"><div class="choice-item"><input type="checkbox" name="dev_action" value="finalite"><label>Une finalité a été définie</label></div><textarea name="details_finalite" class="hidden" placeholder="Décrivez..."></textarea></div>
+                        <div class="data-item">
+                            <div class="choice-item"><input type="checkbox" id="dev-qualification" name="dev_action" value="qualification_juridique"><label>La qualification juridique des acteurs a été déterminée</label></div>
+                            <div id="conditional-dev-qualification" class="hidden conditional-section sub-group">
+                                <div class="choice-item"><input type="checkbox" name="qualification_acteurs" value="responsable_traitement"><label>Responsable(s) du traitement</label></div>
+                                <div class="data-item"><div class="choice-item"><input type="checkbox" name="qualification_acteurs" value="responsables_conjoints"><label>Responsables conjoints du traitement</label></div><textarea name="details_responsables_conjoints" class="hidden" placeholder="Précisez..."></textarea></div>
+                                <div class="data-item"><div class="choice-item"><input type="checkbox" name="qualification_acteurs" value="sous_traitants"><label>Sous-traitant(s)</label></div><textarea name="details_sous_traitants" class="hidden" placeholder="Précisez..."></textarea></div>
+                            </div>
+                        </div>
+                        <div class="data-item"><div class="choice-item"><input type="checkbox" name="dev_action" value="base_legale"><label>Le développement de l’IA est licite et dispose d’une base légale identifiée</label></div><textarea name="details_base_legale" class="hidden" placeholder="Précisez..."></textarea></div>
+                        <div class="choice-item"><input type="checkbox" name="dev_action" value="aipd"><label>Une analyse d’impact relative à la protection des données (AIPD) a été réalisée</label></div>
+                        <div class="data-item"><div class="choice-item"><input type="checkbox" name="dev_action" value="protection_conception"><label>La protection des données dès la conception du système a été garantie</label></div><textarea name="details_protection_conception" class="hidden" placeholder="Exemple de garanties..."></textarea></div>
+                        <div class="data-item"><div class="choice-item"><input type="checkbox" name="dev_action" value="information_personnes"><label>L’information des personnes sur les traitements opérés sur leurs données a été prévue</label></div><textarea name="details_information_personnes" class="hidden" placeholder="Contenu et vecteur de l’information..."></textarea></div>
+                        <div class="choice-item"><input type="checkbox" name="dev_action" value="exercice_droits"><label>Des procédures pour rendre effectif l’exercice de leurs droits par les personnes concernées ont été définies</label></div>
+                        <div class="choice-item"><input type="checkbox" name="dev_action" value="annotation_donnees"><label>Les données ont été annotées</label></div>
+                        <div class="data-item"><div class="choice-item"><input type="checkbox" name="dev_action" value="securite_developpement"><label>La sécurité du développement du système d’IA a été garantie</label></div><textarea name="details_securite_developpement" class="hidden" placeholder="Exemples de mesures de sécurité..."></textarea></div>
+                    </div>
+                </div>
+
+                <div class="form-group" id="conditional-legal-basis">
+                    <label>4.2. [Si traitement non référencé dans le registre] Base légale du projet</label>
+                    <p class="conditional-intro">Le projet est prévu par, ou s’appuie sur :</p>
+                    <div class="choice-group">
+                        <div class="data-item"><div class="choice-item"><input type="radio" name="legal_basis" value="text"><label>Un texte législatif ou réglementaire</label></div><textarea name="details_legal_text" class="hidden" placeholder="Citez la référence..."></textarea></div>
+                        <div class="data-item"><div class="choice-item"><input type="radio" name="legal_basis" value="consent"><label>Un consentement au traitement de leurs données est prévu ou demandé aux personnes concernées</label></div><textarea name="details_legal_consent" class="hidden" placeholder="Précisez la forme et le contenu..."></textarea></div>
+                        <div class="data-item"><div class="choice-item"><input type="radio" name="legal_basis" value="contract"><label>Un contrat passé avec les personnes concernées par le projet</label></div><textarea name="details_legal_contract" class="hidden" placeholder="Renseigner les parties au contrat et son contenu..."></textarea></div>
+                        <div class="choice-item"><input type="radio" name="legal_basis" value="vital"><label>Dans un contexte d’urgence pour la sauvegarde des intérêts vitaux de personnes physiques</label></div>
+                        <div class="choice-item"><input type="radio" name="legal_basis" value="none"><label>Aucune de ces propositions</label></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>4.3. [Le cas échéant] Identification du prestataire, des destinataires et du lieu de traitement des données</label>
+                    <div class="sub-group">
+                        <label for="provider-nationality">Nationalité de l’entreprise prestataire :</label>
+                        <input type="text" id="provider-nationality" name="provider_nationality">
+
+                        <label>Le prestataire a-t-il lui-même recours à un ou des sous-traitants :</label>
+                        <div class="choice-group">
+                            <div class="choice-item"><input type="radio" name="sub_subcontractor" value="yes"><label>Oui</label></div>
+                            <div class="choice-item"><input type="radio" name="sub_subcontractor" value="no"><label>Non</label></div>
+                            <div class="choice-item"><input type="radio" name="sub_subcontractor" value="unknown"><label>Je ne sais pas</label></div>
+                        </div>
+                        <div id="conditional-sub-subcontractor" class="hidden conditional-section">
+                            <label for="sub-subcontractor-details">Citer le(s) sous-traitant(s) et, si possible, sa (leur) nationalité :</label>
+                            <input type="text" id="sub-subcontractor-details" name="sub_subcontractor_details">
+                        </div>
+
+                        <label>Les données sont stockées/traitées sur des serveurs [choix multiples] :</label>
+                        <div class="choice-group">
+                            <div class="choice-item"><input type="checkbox" name="server_location" value="internal"><label>Internes au porteur de projet (On premise)</label></div>
+                            <div class="choice-item"><input type="checkbox" name="server_location" value="external"><label>Externes au porteur de projet (Cloud computing)</label></div>
+                        </div>
+
+                        <label for="data-processing-country">Lieu(x) (pays) de traitement des données (stockage/localisation des serveurs) :</label>
+                        <input type="text" id="data-processing-country" name="data_processing_country">
+
+                        <label>Existence d’un document contractuel liant le porteur de projet au sous-traitant :</label>
+                        <div class="choice-group">
+                            <div class="choice-item"><input type="radio" name="contract_exists" value="yes"><label>Oui</label></div>
+                            <div class="choice-item"><input type="radio" name="contract_exists" value="no"><label>Non</label></div>
+                        </div>
+                        <div id="conditional-contract-exists" class="hidden conditional-section">
+                            <label for="contract-type">Lequel (contrat, CGU etc.) :</label>
+                            <input type="text" id="contract-type" name="contract_type">
+                            <label>Qualité du signataire du contrat chez le porteur de projet :</label>
+                            <div class="choice-group vertical">
+                                <div class="choice-item"><input type="radio" name="contract_signer" value="chef_eple"><label>Chef d’EPLE</label></div>
+                                <div class="choice-item"><input type="radio" name="contract_signer" value="directeur_ecole"><label>Directeur d’école</label></div>
+                                <div class="choice-item"><input type="radio" name="contract_signer" value="enseignant"><label>Enseignant</label></div>
+                                <div class="choice-item"><input type="radio" name="contract_signer" value="chef_service"><label>Chef de service académique</label></div>
+                                <div class="choice-item"><input type="radio" name="contract_signer" value="direction_generale"><label>Direction générale – Académie</label></div>
+                            </div>
+                        </div>
+
+                        <label for="data-recipients">A qui sont destinées et/ou avec qui seront partagés les données issues du traitement :</label>
+                        <textarea id="data-recipients" name="data_recipients" rows="3"></textarea>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>4.4. Qualification du risque</legend>
+                <div class="form-group">
+                    <label>Le projet a pour but ou pour effet (cochez les cases correspondantes) :</label>
+                    <div class="choice-group vertical">
+                        <div class="choice-item"><input type="checkbox" id="risk-scoring" name="risk" value="scoring"><label for="risk-scoring">L’évaluation/scoring (y compris le profilage) <span class="tooltip" data-tooltip="Évaluation ou notation, y compris les activités de profilage et de prédiction, portant notamment sur des «aspects concernant le rendement au travail de la personne concernée, sa situation économique, sa santé, ses préférences ou centres d’intérêt personnels, sa fiabilité ou son comportement, ou sa localisation et ses déplacements»">ⓘ</span></label></div>
+                        <div class="choice-item"><input type="checkbox" id="risk-auto-decision-legal" name="risk" value="auto_decision_legal"><label for="risk-auto-decision-legal">La décision automatique avec effet légal ou similaire <span class="tooltip" data-tooltip="Traitement ayant pour finalité la prise de décisions à l’égard des personnes concernées produisant «des effets juridiques à l’égard d’une personne physique ou l’affectant de manière significative de façon similaire»">ⓘ</span></label></div>
+                        <div class="choice-item"><input type="checkbox" id="risk-monitoring" name="risk" value="monitoring"><label for="risk-monitoring">La surveillance systématique <span class="tooltip" data-tooltip="Traitement utilisé pour observer, surveiller ou contrôler les personnes concernées, y compris la collecte de données via des réseaux ou par «la surveillance systématique […] d’une zone accessible au public»">ⓘ</span></label></div>
+                        <div class="choice-item"><input type="checkbox" id="risk-sensitive-data" name="risk" value="sensitive_data"><label for="risk-sensitive-data">La collecte de données sensibles ou données à caractère hautement personnel <span class="tooltip" data-tooltip="Il s’agit de catégories particulières de données à caractère personnel visées à l’article 9 (informations concernant les opinions politiques des personnes, les données médicales, biométriques par exemple) ainsi que des données à caractère personnel relatives aux condamnations pénales ou aux infractions">ⓘ</span></label></div>
+                        <div class="choice-item"><input type="checkbox" id="risk-large-scale" name="risk" value="large_scale"><label for="risk-large-scale">La collecte de données personnelles à grande échelle <span class="tooltip" data-tooltip="Facteurs à prendre en compte: nombre de personnes concernées, volume de données, durée/permanence de l'activité, étendue géographique.">ⓘ</span></label></div>
+                        <div class="choice-item"><input type="checkbox" id="risk-data-crossing" name="risk" value="data_crossing"><label for="risk-data-crossing">Le croisement ou la combinaison d’ensembles de données <span class="tooltip" data-tooltip="Par exemple issus de deux opérations de traitement de données, ou plus, effectuées à des fins différentes et/ou par différents responsables du traitement, d’une manière qui outrepasserait les attentes raisonnables de la personne concernée">ⓘ</span></label></div>
+                        <div class="choice-item"><input type="checkbox" id="risk-vulnerable" name="risk" value="vulnerable"><label for="risk-vulnerable">Des traitements concernant des personnes vulnérables (patients, salariés, enfants, etc.) <span class="tooltip" data-tooltip="Le déséquilibre des pouvoirs accru qui existe entre les personnes concernées et le responsable du traitement, ce qui signifie que les premières peuvent se trouver dans l’incapacité de consentir, ou de s’opposer, aisément au traitement de leurs données ou d’exercer leurs droits.">ⓘ</span></label></div>
+                        <div class="choice-item"><input type="checkbox" id="risk-innovative-use" name="risk" value="innovative_use"><label for="risk-innovative-use">L’usage innovant ou application de nouvelles solutions technologiques ou organisationnelle <span class="tooltip" data-tooltip="Utilisation, par exemple, de systèmes de reconnaissance des empreintes digitales et de reconnaissance faciale pour améliorer le contrôle des accès physiques, etc.">ⓘ</span></label></div>
+                        <div class="choice-item"><input type="checkbox" id="risk-exclusion" name="risk" value="exclusion"><label for="risk-exclusion">L’exclusion du bénéfice d’un droit/contrat <span class="tooltip" data-tooltip="Ces traitements incluent notamment les opérations visant à autoriser, modifier ou refuser l’accès à un service ou la conclusion d’un contrat.">ⓘ</span></label></div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>5. [A partir du 2 août 2025 ou du 2 août 2026] Conformité IA dès la conception</legend>
+
+                <div class="form-group">
+                    <label>5.1. Identification du système d’IA et des obligations correspondantes</label>
+                    <p>L’IA dispose-t-elle d’une ou plusieurs caractéristiques/fonctionnalités suivantes :</p>
+                    <div class="choice-group vertical">
+                        <div class="choice-item"><input type="checkbox" name="ia_feature" value="general_purpose_tasks"><label>[Fournisseur] Elle est capable d’exécuter de manière compétente un large éventail de tâches distinctes</label></div>
+                        <div class="choice-item"><input type="checkbox" name="ia_feature" value="general_purpose_compute"><label>[Fournisseur] La puissance de calcul du modèle d’IA à usage général est supérieur à 10 puissance 25.</label></div>
+                        <div class="choice-item"><input type="checkbox" name="ia_feature" value="direct_interaction"><label>[Fournisseur] Elle interagit directement avec des personnes physiques</label></div>
+                        <div class="choice-item"><input type="checkbox" name="ia_feature" value="generates_content"><label>[Fournisseur] Elle génère des contenus de synthèse (audio, image, vidéo, texte)</label></div>
+                        <div class="choice-item"><input type="checkbox" name="ia_feature" value="emotion_recognition"><label>[Déployeur] Elle permet de reconnaitre les émotions ou permet la catégorisation biométrique</label></div>
+                        <div class="choice-item"><input type="checkbox" name="ia_feature" value="deepfake_generation"><label>[Déployeur] Elle génère ou manipule des images ou contenus audio ou vidéo constituant un hypertrucage</label></div>
+                        <div class="choice-item"><input type="checkbox" name="ia_feature" value="generates_text_for_public"><label>[Déployeur] Elle génère ou manipule des textes publiés dans le but d’informer des questions d’intérêt public.</label></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <p>L’IA est-elle utilisée pour l’une ou plusieurs finalités suivantes (cochez les cases correspondantes) :</p>
+                    <div class="choice-group vertical">
+                        <div class="choice-item"><input type="checkbox" name="hr_purpose" value="emotion_recognition_purpose"><label>à identifier, classifier ou reconnaitre les émotions à l’aide d’un dispositif biométrique</label></div>
+                        <div class="choice-item"><input type="checkbox" name="hr_purpose" value="affectation_eleves"><label>à déterminer l'affectation des élèves à des établissements d'enseignement ou de formation professionnelle, à tous les niveaux</label></div>
+                        <div class="choice-item"><input type="checkbox" name="hr_purpose" value="evaluation_eleves"><label>à évaluer les acquis d'apprentissage et orienter le processus d'apprentissage des élèves</label></div>
+                        <div class="choice-item"><input type="checkbox" name="hr_purpose" value="evaluation_niveau"><label>à évaluer le niveau d'enseignement approprié qu'une personne recevra ou sera en mesure d'atteindre</label></div>
+                        <div class="choice-item"><input type="checkbox" name="hr_purpose" value="surveillance_examens"><label>à surveiller et détecter des comportements interdits chez les étudiants lors d'examens</label></div>
+                        <div class="choice-item"><input type="checkbox" name="hr_purpose" value="recrutement"><label>au recrutement ou la sélection de personnes physiques, en particulier pour publier des offres d'emploi ciblées, analyser et filtrer les candidatures et évaluer les candidats</label></div>
+                        <div class="choice-item"><input type="checkbox" name="hr_purpose" value="evaluation_pro"><label>à prendre des décisions influant sur les conditions des relations professionnelles (attribution de tâches, promotion ou licenciement etc.) sur la base du comportement individuel, de traits de personnalité ou de caractéristiques personnelles ou pour suivre et évaluer les performances et le comportement de personnes.</label></div>
+                        <div class="choice-item"><input type="checkbox" name="hr_purpose" value="eligibilite_sociale"><label>à évaluer l'éligibilité des agents aux prestations et services d'aide sociale essentiels ainsi que pour octroyer, réduire, révoquer ou récupérer ces prestations et services.</label></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <p>L’IA est-elle destinée à :</p>
+                     <div class="choice-group vertical">
+                        <div class="choice-item"><input type="checkbox" name="ia_destiny" value="tache_procedurale"><label>Accomplir une tâche procédurale étroite</label></div>
+                        <div class="choice-item"><input type="checkbox" name="ia_destiny" value="ameliorer_resultat"><label>Améliorer le résultat d’une activité humaine préalablement réalisée</label></div>
+                        <div class="choice-item"><input type="checkbox" name="ia_destiny" value="detecter_constantes"><label>Détecter les constantes en matière de prise de décision ou les écarts par rapport aux constantes habituelles et ne substitue pas à l’évaluation humaine préalablement réaliser ni à l’influencer</label></div>
+                        <div class="choice-item"><input type="checkbox" name="ia_destiny" value="tache_preparatoire"><label>Exécuter une tâche préparatoire en vue d’une évaluation pertinente</label></div>
+                    </div>
+                </div>
+
+                <div id="conditional-general-purpose-ai" class="hidden conditional-section">
+                    <label>5.2. [A partir du 2 août 2025][Si modèle d’IA à usage général] [Si fournisseur] Obligations du fournisseur d’un modèle d’IA usage général</label>
+                    <p>Le porteur de projet a-t-il élaboré et/ou mis à jour et/ou mis à disposition et/ou mis en place :</p>
+                    <div class="choice-group vertical">
+                        <div class="choice-item"><input type="checkbox" name="gp_provider_obligations" value="doc_technique"><label>La documentation technique du modèle (processus entrainement, essai, résultat de l’évaluation)</label></div>
+                        <div class="choice-item"><input type="checkbox" name="gp_provider_obligations" value="info_fournisseurs"><label>Les informations et la documentation à destination des fournisseurs intégrant le modèle d’IA dans leur SIA</label></div>
+                        <div class="choice-item"><input type="checkbox" name="gp_provider_obligations" value="politique_copyright"><label>Une politique visant à se conformer au droit de l’Union en matière de droit d’auteur et droits voisins</label></div>
+                        <div class="choice-item"><input type="checkbox" name="gp_provider_obligations" value="resume_contenu"><label>Un résumé du contenu utilisé pour entrainer le modèle d’IA à usage général.</label></div>
+                    </div>
+                </div>
+
+                <div id="conditional-systemic-risk-ai" class="hidden conditional-section">
+                    <label>[Si modèle d’IA à usage général présentant un risque systémique] [Si fournisseur] Obligations du fournisseur</label>
+                     <p>Le porteur de projet a-t-il :</p>
+                     <div class="choice-group vertical">
+                        <div class="choice-item"><input type="checkbox" name="gp_systemic_provider_obligations" value="informe_commission"><label>Informé la Commission</label></div>
+                        <div class="choice-item"><input type="checkbox" name="gp_systemic_provider_obligations" value="evalue_modeles"><label>Evalué les modèles</label></div>
+                        <div class="choice-item"><input type="checkbox" name="gp_systemic_provider_obligations" value="evalue_risques"><label>Evalué et atténué les risques systémiques</label></div>
+                        <div class="choice-item"><input type="checkbox" name="gp_systemic_provider_obligations" value="communique_incidents"><label>Communiqué aux autorités les informations concernant les incidents graves et mesures correctives</label></div>
+                        <div class="choice-item"><input type="checkbox" name="gp_systemic_provider_obligations" value="cybersecurite"><label>Apporté un niveau approprié de cybersécurité pour le modèle d’IA et son infrastructure physique.</label></div>
+                    </div>
+                </div>
+
+                <div id="conditional-high-risk-ai" class="hidden conditional-section">
+                    <label>5.3. [A partir du 2 août 2026] [SI IA à haut risque] Obligations relatives à une IA à haut risque</label>
+
+                    <div class="sub-group">
+                        <label>[Si fournisseur] Obligations du fournisseur</label>
+                        <p>Le porteur de projet a-t-il entrepris/réalisé les démarches/actions suivantes :</p>
+                        <div class="choice-group vertical">
+                            <div class="choice-item"><input type="checkbox" name="hr_provider_obligations" value="systeme_gestion_risques"><label>Mis en place un système de gestion des risques</label></div>
+                            <div class="choice-item"><input type="checkbox" name="hr_provider_obligations" value="donnees_gouvernance"><label>Données et gouvernance des données</label></div>
+                            <div class="choice-item"><input type="checkbox" name="hr_provider_obligations" value="doc_technique_hr"><label>Documentation technique</label></div>
+                            <div class="choice-item"><input type="checkbox" name="hr_provider_obligations" value="enregistrement_journalisation"><label>Enregistrement/journalisation</label></div>
+                            <div class="choice-item"><input type="checkbox" name="hr_provider_obligations" value="transparence_fournisseurs"><label>Transparence et fourniture d’informations aux déployeurs</label></div>
+                            <div class="choice-item"><input type="checkbox" name="hr_provider_obligations" value="controle_humain"><label>Contrôle humain</label></div>
+                            <div class="choice-item"><input type="checkbox" name="hr_provider_obligations" value="exactitude_robustesse_cybersecurite"><label>Exactitude, robustesse et cybersécurité</label></div>
+                            <div class="choice-item"><input type="checkbox" name="hr_provider_obligations" value="identification_fournisseur"><label>Indiqué sur le SIA ou son emballage l’identification du fournisseur</label></div>
+                            <div class="choice-item"><input type="checkbox" name="hr_provider_obligations" value="systeme_gestion_qualite"><label>Mis en place un système de gestion de la qualité</label></div>
+                            <div class="choice-item"><input type="checkbox" name="hr_provider_obligations" value="conservation_documentation"><label>Conserver la documentation (documentation technique, système gestion qualité…)</label></div>
+                            <div class="choice-item"><input type="checkbox" name="hr_provider_obligations" value="tenir_journaux"><label>Si son contrôle, tenir les journaux</label></div>
+                            <div class="choice-item"><input type="checkbox" name="hr_provider_obligations" value="procedure_evaluation_conformite"><label>Veillé à ce que le SIA soit soumis à la procédure d’évaluation de la conformité</label></div>
+                            <div class="choice-item"><input type="checkbox" name="hr_provider_obligations" value="declaration_ue_conformite"><label>Elaboré une déclaration UE de conformité</label></div>
+                            <div class="choice-item"><input type="checkbox" name="hr_provider_obligations" value="marquage_ce"><label>Apposé le marquage CE sur le SIA ou sur son emballage</label></div>
+                            <div class="choice-item"><input type="checkbox" name="hr_provider_obligations" value="enregistrement"><label>Respecté les obligations en matière d’enregistrement</label></div>
+                            <div class="choice-item"><input type="checkbox" name="hr_provider_obligations" value="mesures_correctives"><label>Pris les mesures correctives nécessaires et fournir les informations requises à l’article 20</label></div>
+                            <div class="choice-item"><input type="checkbox" name="hr_provider_obligations" value="prouver_conformite"><label>Prouvé sur demande motivée d’une autorité nationale compétente la conformité du SIA à haut risque avec les exigences</label></div>
+                            <div class="choice-item"><input type="checkbox" name="hr_provider_obligations" value="accessibilite_sia"><label>Veillé à ce que le SIA soit accessible</label></div>
+                            <div class="choice-item"><input type="checkbox" name="hr_provider_obligations" value="evaluation_conformite_biometrique"><label>[Si SIA à haut risque biométrique] Appliqué la procédure d’évaluation de la conformité adaptée</label></div>
+                        </div>
+                    </div>
+
+                    <div class="sub-group">
+                        <label>[Si déployeur] Obligations du déployeur</label>
+                        <p>Le porteur de projet a-t-il prévu, ou a-t-il (s’est-il) d’ores et déjà :</p>
+                        <div class="choice-group vertical">
+                             <div class="choice-item"><input type="checkbox" name="hr_deployer_obligations" value="mesures_techniques_organisationnelles"><label>Pris les mesures techniques et organisationnelles afin de garantir qu’il utilise le SIA conformément à la notice d’utilisation</label></div>
+                             <div class="choice-item"><input type="checkbox" name="hr_deployer_obligations" value="confie_controle_humain"><label>Confié le contrôle humain à des personnes qui disposent des compétences, formation, autorité et soutien nécessaires</label></div>
+                             <div class="choice-item"><input type="checkbox" name="hr_deployer_obligations" value="pertinence_donnees_entree"><label>Assuré de la pertinence et représentativité des données d’entrée le cas échéant</label></div>
+                             <div class="choice-item"><input type="checkbox" name="hr_deployer_obligations" value="surveille_fonctionnement"><label>Surveillé le fonctionnement du SIA HR sur la base de la notice d’utilisation</label></div>
+                             <div class="choice-item"><input type="checkbox" name="hr_deployer_obligations" value="mecanismes_information_signalement"><label>Prévu des mécanismes d’information/signalement</label></div>
+                             <div class="choice-item"><input type="checkbox" name="hr_deployer_obligations" value="tenue_journaux_gérés_automatiquement"><label>Si sous son contrôle, assuré la tenue des journaux gérés automatiquement</label></div>
+                             <div class="choice-item"><input type="checkbox" name="hr_deployer_obligations" value="information_irp"><label>Information des IRP si utilisé par l’employeur sur le lieu de travail</label></div>
+                             <div class="choice-item"><input type="checkbox" name="hr_deployer_obligations" value="realiser_aipd"><label>Utilisé les informations fournies au par le fournisseur réaliser l’AIPD</label></div>
+                             <div class="choice-item"><input type="checkbox" name="hr_deployer_obligations" value="autorisation_biometrique_posteriori"><label>Si utilisation d’un SIA à haut risque d’identification biométrique à distance a posteriori, demander l’autorisation d’une autorité judiciaire ou administrative</label></div>
+                             <div class="choice-item"><input type="checkbox" name="hr_deployer_obligations" value="informe_personnes_decision_ia"><label>Informé des personnes concernées de l’existence, le cas échéant, d’une prise de décision via l’IA.</label></div>
+                             <div class="choice-item"><input type="checkbox" name="hr_deployer_obligations" value="analyse_impact_droits_fondamentaux"><label>Mené une analyse d’impact sur les droits fondamentaux</label></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="conditional-transparency" class="hidden conditional-section">
+                    <label>5.4. [A partir du 2 août 2026] [Si le projet implique l’utilisation d’un système d’IA particulier] Obligations particulières de transparence</label>
+
+                    <div class="sub-group">
+                        <label>[Si Fournisseur]</label>
+                        <p>Les mesures informatives et/ou de transparence suivantes ont-elles été mises en œuvre par le porteur de projet :</p>
+                         <div class="choice-group vertical">
+                            <div class="choice-item"><input type="checkbox" name="transparency_provider" value="informe_interaction_ia"><label>[Si SIA développés pour interagir directement avec des personnes physiques] Les personnes doivent être informées qu’elles échangent avec une IA</label></div>
+                            <div class="choice-item"><input type="checkbox" name="transparency_provider" value="contenus_marques_ia"><label>[Si SIA, y compris à usage général, qui génèrent des contenus de synthèse (audio, vidéo, image, texte etc.)] Les contenus sont marqués comme ayant été générés par une IA et les solutions sont efficaces, interopérables, solides et fiables</label></div>
+                            <div class="choice-item"><input type="checkbox" name="transparency_provider" value="information_non_prevue"><label>La mesure d’information décrite ci-dessus n’a été prévue.</label></div>
+                        </div>
+                    </div>
+
+                    <div class="sub-group">
+                        <label>[Si déployeur]</label>
+                        <p>Les mesures informatives et/ou de transparence suivantes ont-elles été mises en œuvre par le porteur de projet :</p>
+                        <div class="choice-group vertical">
+                            <div class="choice-item"><input type="checkbox" name="transparency_deployer" value="information_reconnaissance_emotions"><label>[Si utilisation d’un système de reconnaissance des émotions ou d’un système de catégorisation biométrique] Information des personnes qui y sont exposées sur fonctionnement du système.</label></div>
+                            <div class="choice-item"><input type="checkbox" name="transparency_deployer" value="indication_hypertrucage"><label>[Si IA qui génère ou manipule des images ou des contenus audio ou vidéo constituant un hypertrucage] Indication sur les contenus générés qu’ils l’ont été par le biais de l’IA.</label></div>
+                            <div class="choice-item"><input type="checkbox" name="transparency_deployer" value="indication_texte_genere"><label>[Si IA qui génère ou manipule des textes publiés dans le but d’informer le public sur des question d’intérêt public sauf si contrôle éditorial ou humain] Indication sur les contenus que le texte a été généré ou manipulé par une IA.</label></div>
+                            <div class="choice-item"><input type="checkbox" name="transparency_deployer" value="information_non_prevue_deployeur"><label>La mesure d’information décrite ci-dessus n’a été prévue.</label></div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
 
             <button type="submit">Soumettre pour analyse</button>
         </form>
+
+        <section id="analysis-section" class="hidden">
+            <h2>Analyse de la conformité</h2>
+            <div id="analysis-result">
+                <!-- Le résultat de l'analyse de l'IA sera injecté ici -->
+            </div>
+        </section>
     </main>
+
+    <!-- Modal for model selection -->
+    <div id="model-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Choisir un modèle d'IA</h2>
+            <p>Veuillez sélectionner un modèle pour effectuer l'analyse de conformité.</p>
+            <div class="form-group">
+                <label for="model-select">Modèles disponibles :</label>
+                <select id="model-select" name="model-select">
+                    <!-- Les options seront peuplées par JavaScript -->
+                </select>
+            </div>
+            <div class="modal-actions">
+                <button id="cancel-model-selection" class="button-secondary">Annuler</button>
+                <button id="confirm-model-selection">Lancer l'analyse</button>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
