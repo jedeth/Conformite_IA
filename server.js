@@ -63,9 +63,11 @@ const port = process.env.PORT || 3000;
 
 // 2. Configurer l'API du LLM
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY || 'ollama',
   baseURL: process.env.OPENAI_BASE_URL,
 });
+
+
 
 let availableModels = [];
 let defaultModel = '';
@@ -114,6 +116,26 @@ app.get('/api/models', (req, res) => {
     }
 });
 
+// Endpoint pour récupérer les modèles d'embedding depuis l'instance Ollama locale
+app.get('/api/embedding-models', async (req, res) => {
+    try {
+        const response = await fetch('http://localhost:11434/api/tags');
+        if (!response.ok) {
+            throw new Error(`Le serveur Ollama a répondu avec le statut ${response.status}`);
+        }
+        const data = await response.json();
+        // Adapter la réponse d'Ollama (`/api/tags`) au format attendu par le front-end
+        const models = data.models.map(model => ({
+            id: model.name,
+            owner: 'ollama' // L'API /api/tags ne fournit pas de propriétaire, on met une valeur par défaut
+        }));
+        res.json(models);
+    } catch (error) {
+        console.error("Erreur lors de la récupération des modèles d'embedding locaux:", error);
+        res.status(500).json({ error: "Impossible de lister les modèles d'embedding locaux. Assurez-vous que Ollama est bien en cours d'exécution." });
+    }
+});
+
 // Endpoint pour lister les documents disponibles pour le RAG
 app.get('/api/documents', async (req, res) => {
     const documentsDir = path.join(process.cwd(), 'documents');
@@ -139,11 +161,7 @@ app.post('/api/rag/create', async (req, res) => {
     }
 
     try {
-        const ollamaBaseUrl = process.env.OPENAI_BASE_URL;
-        if (!ollamaBaseUrl) {
-            throw new Error("L'URL de base d'Ollama (OPENAI_BASE_URL) n'est pas configurée dans le fichier .env");
-        }
-        await createVectorStore(documents, embeddingModel, ollamaBaseUrl);
+        await createVectorStore(documents, embeddingModel);
         res.json({ message: "La base de données vectorielle a été créée avec succès." });
     } catch (error) {
         console.error("Erreur lors de la création de la base vectorielle:", error);
@@ -226,8 +244,7 @@ app.post('/analyze', async (req, res) => {
     // --- INTÉGRATION RAG ---
     let ragContext = "";
     try {
-        const ollamaBaseUrl = process.env.OPENAI_BASE_URL;
-        const searchResults = await performSimilaritySearch(textReport, ollamaBaseUrl);
+        const searchResults = await performSimilaritySearch(textReport);
 
         if (searchResults && searchResults.length > 0) {
             ragContext = "Contexte pertinent extrait de la base de connaissances (à utiliser pour l'analyse) :\n\n---\n" +

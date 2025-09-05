@@ -1,4 +1,4 @@
-import { TextLoader } from "@langchain/community/document_loaders/fs/text";
+import { TextLoader } from "langchain/document_loaders/fs/text";
 import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 import { OllamaEmbeddings } from "@langchain/community/embeddings/ollama";
@@ -40,7 +40,7 @@ async function loadDocuments(fileNames) {
 }
 
 // Fonction principale pour créer et sauvegarder la base vectorielle
-export async function createVectorStore(fileNames, embeddingModel, ollamaBaseUrl) {
+export async function createVectorStore(fileNames, embeddingModel) {
     console.log("Démarrage de la création de la base vectorielle RAG...");
     console.log("Documents sélectionnés :", fileNames);
     console.log("Modèle d'embedding utilisé :", embeddingModel);
@@ -60,10 +60,10 @@ export async function createVectorStore(fileNames, embeddingModel, ollamaBaseUrl
     const splits = await textSplitter.splitDocuments(docs);
     console.log(`${splits.length} morceaux de documents créés.`);
 
-    // 3. Initialiser les embeddings avec le modèle Ollama
+    // 3. Initialiser les embeddings avec le modèle Ollama local
     const embeddings = new OllamaEmbeddings({
         model: embeddingModel,
-        baseUrl: ollamaBaseUrl,
+        baseUrl: "http://localhost:11434", // Forcer l'utilisation de l'Ollama local
     });
 
     // 4. S'assurer que le répertoire de la base existe, et le vider s'il existe déjà
@@ -101,7 +101,7 @@ export async function checkVectorStoreExists() {
     }
 }
 
-export async function performSimilaritySearch(query, ollamaBaseUrl) {
+export async function performSimilaritySearch(query) {
     console.log("Lancement de la recherche par similarité...");
 
     // 1. Vérifier si la base existe et récupérer le nom du modèle d'embedding
@@ -111,10 +111,10 @@ export async function performSimilaritySearch(query, ollamaBaseUrl) {
         return []; // Retourner un tableau vide si pas de base
     }
 
-    // 2. Initialiser les embeddings avec le modèle stocké dans les métadonnées
+    // 2. Initialiser les embeddings avec le modèle stocké dans les métadonnées, en utilisant l'Ollama local
     const embeddings = new OllamaEmbeddings({
         model: storeInfo.embeddingModel,
-        baseUrl: ollamaBaseUrl,
+        baseUrl: "http://localhost:11434", // Forcer l'utilisation de l'Ollama local
     });
 
     // 3. Charger la base vectorielle depuis le disque

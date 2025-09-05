@@ -198,7 +198,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const models = await response.json();
 
             modelSelect.innerHTML = ''; // Vider les anciennes options
-            models.forEach(model => {
+            const chatModels = models.filter(model => !model.id.includes('embed'));
+            chatModels.forEach(model => {
                 const option = document.createElement('option');
                 option.value = model.id;
                 option.textContent = `${model.id} (Propriétaire: ${model.owner})`;
@@ -304,7 +305,7 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             const [docsRes, modelsRes, statusRes] = await Promise.all([
                 fetch('/api/documents'),
-                fetch('/api/models'),
+                fetch('/api/embedding-models'), // Utiliser la nouvelle route pour les modèles locaux
                 fetch('/api/rag/status')
             ]);
 
@@ -335,9 +336,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
 
-            // Peupler la liste des modèles
+            // Peupler la liste des modèles en filtrant pour les modèles d'embedding
             ragModelSelect.innerHTML = '';
-            models.forEach(model => {
+            const embeddingModels = models.filter(model => model.id.includes('embed'));
+            embeddingModels.forEach(model => {
                 const option = document.createElement('option');
                 option.value = model.id;
                 option.textContent = model.id; // Simplifié pour la clarté
