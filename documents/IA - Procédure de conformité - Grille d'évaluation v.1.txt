@@ -1,0 +1,1645 @@
+﻿v.1 
+
+Intelligence artificielle (IA) 
+Procédure d’analyse de la conformité  
+
+Grille d’évaluation   
+
+ 
+
+Version 1 du 17 mars 2025 
+
+ 
+
+Glossaire1 
+« Algorithme »2 : Un algorithme est la description d'une suite d'étapes permettant d'obtenir un résultat 
+à partir d'éléments fournis en entrée. 
+
+« Intelligence artificielle »3 ou « IA » : Champ interdisciplinaire théorique et pratique qui a pour objet la 
+compréhension de mécanismes de la cognition et de la réflexion, et leur imitation par un dispositif 
+matériel et logiciel, à des fins d’assistance ou de substitution à des activités humaines.  
+
+« Système d’IA »4 ou « SIA » : un système automatisé qui est conçu pour fonctionner à différents 
+niveaux d’autonomie et peut faire preuve d’une capacité d’adaptation après son déploiement, et qui, 
+pour des objectifs explicites ou implicites, déduit, à partir des entrées qu’il reçoit, la manière de générer 
+des sorties telles que des prédictions, du contenu, des recommandations ou des décisions qui peuvent 
+influencer les environnements physiques ou virtuels. 
+ 
+« modèle d’IA à usage général »5 : un modèle d’IA, y compris lorsque ce modèle d’IA est entraîné à l’aide 
+d’un grand nombre de données utilisant l’auto-supervision à grande échelle, qui présente une généralité 
+significative et est capable d’exécuter de manière compétente un large éventail de tâches distinctes, 
+indépendamment de la manière dont le modèle est mis sur le marché, et qui peut être intégré dans une 
+variété de systèmes ou d’applications en aval, à l’exception des modèles d’IA utilisés pour des activités 
+de recherche, de développement ou de prototypage avant leur mise sur le marché. 
+ 
+« Phase de développement »6 : elle consiste à concevoir, développer et entraîner un système d’IA. 
+ 
+« Phase de déploiement »7 : elle consiste à mettre en usage le système d’IA développé lors de la 
+première phase. 
+ 
+« Fournisseur »8 : une personne physique ou morale, une autorité publique, une agence ou tout autre 
+organisme qui développe ou fait développer un système d’IA ou un modèle d’IA à usage général et le 
+met sur le marché ou met le système d’IA en service sous son propre nom ou sa propre marque, à titre 
+onéreux ou gratuit. 
+ 
+« Déployeur »9 : une personne physique ou morale, une autorité publique, une agence ou un autre 
+organisme utilisant sous sa propre autorité un système d’IA sauf lorsque ce système est utilisé dans le 
+cadre d’une activité personnelle à caractère non professionnel. 
+
+ 
+1 https://www.cnil.fr/fr/intelligence-artificielle/glossaire-ia  
+2 https://www.cnil.fr/fr/definition/algorithme  
+3 https://www.culture.fr/franceterme/terme/INFO948 
+4 Article 3.1 RIA 
+5 Article 3.63 RIA 
+6 https://www.cnil.fr/fr/quel-est-le-perimetre-des-fiches-pratiques-sur-lia  
+7 ibid 
+8 Article 4.3 RIA 
+9 Article 4.4 RIA 
+
+ 
+
+
+
+v.1 
+
+ 
+« Données à caractère personnel »10 : toute information se rapportant à une personne physique 
+
+identifiée ou identifiable (ci-après dénommée «personne concernée») ; est réputée être une «personne 
+physique identifiable» une personne physique qui peut être identifiée, directement ou indirectement, 
+notamment par référence à un identifiant, tel qu'un nom, un numéro d'identification, des données de 
+localisation, un identifiant en ligne, ou à un ou plusieurs éléments spécifiques propres à son identité 
+
+physique, physiologique, génétique, psychique, économique, culturelle ou sociale. 
+
+« Données biométriques »11 les données à caractère personnel résultant d’un traitement technique 
+spécifique, relatives aux caractéristiques physiques, physiologiques ou comportementales d’une 
+personne physique, telles que des images faciales ou des données dactyloscopiques ;  
+
+« Données d’entraînement »12 : les données utilisées pour entraîner un système d’IA en ajustant ses 
+paramètres entraînables. 
+
+« Données de validation »13 : les données utilisées pour fournir une évaluation du système d’IA entraîné 
+
+et pour régler ses paramètres non entraînables ainsi que son processus d’apprentissage, afin, 
+notamment, d’éviter tout sous-ajustement ou surajustement. 
+
+« Traitement »14, toute opération ou tout ensemble d'opérations effectuées ou non à l'aide de procédés 
+automatisés et appliquées à des données ou des ensembles de données à caractère personnel, telles 
+que la collecte, l'enregistrement, l'organisation, la structuration, la conservation, l'adaptation ou la 
+
+modification, l'extraction, la consultation, l'utilisation, la communication par transmission, la diffusion 
+ou toute autre forme de mise à disposition, le rapprochement ou l'interconnexion, la limitation, 
+l'effacement ou la destruction. 
+
+« Responsable du traitement »15 : la personne physique ou morale, l'autorité publique, le service ou un 
+autre organisme qui, seul ou conjointement avec d'autres, détermine les finalités et les moyens du 
+traitement; lorsque les finalités et les moyens de ce traitement sont déterminés par le droit de l'Union 
+
+ou le droit d'un État membre, le responsable du traitement peut être désigné ou les critères spécifiques 
+applicables à sa désignation peuvent être prévus par le droit de l'Union ou par le droit d'un État 
+membre. 
+
+« Sous-traitant »16 : la personne physique ou morale, l'autorité publique, le service ou un autre 
+organisme qui traite des données à caractère personnel pour le compte du responsable du traitement. 
+
+« Destinataire »17 : la personne physique ou morale, l'autorité publique, le service ou tout autre 
+
+organisme qui reçoit communication de données à caractère personnel, qu'il s'agisse ou non d'un tiers. 
+Toutefois, les autorités publiques qui sont susceptibles de recevoir communication de données à 
+caractère personnel dans le cadre d'une mission d'enquête particulière conformément au droit de 
+l'Union ou au droit d'un État membre ne sont pas considérées comme des destinataires; le traitement 
+
+de ces données par les autorités publiques en question est conforme aux règles applicables en matière 
+de protection des données en fonction des finalités du traitement. 
+
+« Profilage »18, toute forme de traitement automatisé de données à caractère personnel consistant à 
+utiliser ces données à caractère personnel pour évaluer certains aspects personnels relatifs à une 
+
+ 
+10 Article 4.1 RGPD 
+11 Article 3.23 RIA 
+12 Article 3.29 RIA 
+13 Article 3.30 RIA 
+14 Article 4.2 RGPD 
+15 Article 4.7 RGPD 
+16 Article 4.8 RGPD 
+17 Article 4.9 RGPD 
+18 Article 4.4 RGPD 
+
+ 
+
+
+
+v.1 
+
+personne physique, notamment pour analyser ou prédire des éléments concernant le rendement au 
+
+travail, la situation économique, la santé, les préférences personnelles, les intérêts, la fiabilité, le 
+comportement, la localisation ou les déplacements de cette personne physique; 
+
+« Annotation des données »19 : Phase consistant à attribuer une description, appelée « label » ou 
+« étiquette », à chacune des données qui servira de « vérité de terrain » (ground truth) pour le modèle 
+qui doit apprendre à traiter, classer, ou encore discriminer les données en fonction de ces informations. 
+
+« Large Language Model (LLM) »20 Modèle statistique de la distribution d’unité linguistiques (par 
+exemple : lettres, phonèmes, mots) dans une langue naturelle. Un modèle de langage peut par 
+exemple prédire le mot suivant dans une séquence de mots. On parle de modèles de langage de 
+grande taille ou « Large Language Models » (LLM) en anglais pour les modèles possédant un grand 
+nombre de paramètres (généralement de l'ordre du milliard de poids ou plus) comme GPT-3, 
+BLOOM, Megatron NLG, Llama ou encore PaLM. 
+
+« Mise en service »21, la fourniture d’un système d’IA en vue d’une première utilisation directement au 
+déployeur ou pour usage propre dans l’Union, conformément à la destination du système d’IA  
+
+« Explicabilité »22 Dans le domaine de l'intelligence artificielle, l’explicabilité est la capacité de mettre 
+en relation et de rendre compréhensible les éléments pris en compte par le système d’IA pour la 
+production d’un résultat. Il peut s’agir, par exemple, des variables d’entrée et de leurs conséquences sur 
+la prévision d’un score, et ainsi sur la décision. Les explications doivent être adaptées au niveau de 
+
+compréhension de la personne auxquelles elles sont destinées. 
+
+ 
+
+Règlementations, référentiels, lignes directrices 
+[RGPD] Règlement (UE) 2016/679 du Parlement européen et du Conseil du 27 avril 2016 relatif à la 
+protection des personnes physiques à l'égard du traitement des données à caractère personnel et à la 
+libre circulation de ces données 
+
+[LIL] Loi n° 78-17 du 6 janvier 1978 relative à l'informatique, aux fichiers et aux libertés 
+
+[RIA] Règlement (UE) 2024/1689 du Parlement européen et du Conseil du 13 juin 2024 établissant des 
+règles harmonisées concernant l’intelligence artificielle 
+
+[LD IA Interdites] Commission Guidelines on prohibited artificial intelligence practices established by 
+Regulation (EU) 2024/1689 (AI Act) – 4 février 2025 
+
+[CEPD IA] Opinion 28/2024 on certain data protection aspects related to the processing of personal 
+
+data in the context of AI models 
+
+[eIDAS] Règlement (ue) n°910/2014 du Parlement européen et du Conseil du 23 juillet 2014 sur 
+l’identification électronique et les services de confiance pour les transactions électroniques au sein du 
+marché intérieur 
+
+[NIS 2] Directive (UE) 2022/2555 du Parlement européen et du Conseil du 14 décembre 2022 
+concernant des mesures destinées à assurer un niveau élevé commun de cybersécurité dans l’ensemble 
+
+de l’Union23 
+
+ 
+19 https://www.cnil.fr/fr/ia-annoter-les-donnees  
+20 https://www.cnil.fr/fr/definition/modele-de-langage  
+21 Article 3.11 RIA 
+22 https://www.cnil.fr/fr/definition/explicabilite-ia  
+23 Attente de la transcription nationale (prévue avant le 17 octobre 2024) 
+
+ 
+
+
+
+v.1 
+
+[CRA] Règlement (UE) 2024/2847 du parlement européen et du conseil du 23 octobre 2024 concernant 
+
+des exigences de cybersécurité horizontales pour les produits comportant des éléments numériques 
+
+[RGS] Ordonnance n° 2005-1516 du 8 décembre 2005 relative aux échanges électroniques entre les 
+usagers et les autorités administratives et entre les autorités administratives et décret d’application 
+n°210-112 du 2 février 2010 
+
+[Référentiel RGS] Référentiel Général de Sécurité v.2.0 
+
+[SI DE L’ETAT] Décret n° 2019-1088 du 25 octobre 2019 relatif au système d'information et de 
+communication de l'Etat et à la direction interministérielle du numérique 
+
+[CLOUD AU CENTRE]24 Actualisation de la doctrine d'utilisation de l'informatique en nuage par l'État (« 
+cloud au centre») 
+
+[REGLES CLOUD AU CENTRE] Les règles de la doctrine 
+
+[SECNUMCLOUD]25 Prestataires de services d’informatique en nuage (SecNumCloud) - référentiel 
+
+d’exigences - Version 3.2 du 8 mars 2022 
+
+[Sécurité IA] ANSSI - Les recommandations de sécurité pour un système d’IA générative 
+
+[PSSIE] Politique de sécurité des systèmes d’information de l’État (PSSIE), portée par la circulaire du 
+
+Premier ministre n°5725/SG du 17 juillet 2014 
+
+[DEVSECOPS] ANSSI - méthodologie qui vise à inclure les pratiques de sécurité dans le processus de 
+développement et de mise en production d'applications. 
+
+[SECURITE CNIL] Guide pratique RGPD – Sécurité des données personnelles – Version 2024 
+
+[AIPD] Lignes directrices concernant l’analyse d’impact relative à la protection des données (AIPD) et la 
+manière de déterminer si le traitement est «susceptible d’engendrer un risque élevé» 
+
+[PROFILAGE] Lignes directrices relatives à la prise de décision individuelle automatisée et au profilage 
+aux fins du règlement (UE) 2016/679 (WP 251rev.01) 
+
+[ADEQUATION] CNIL – La protection des données dans le monde – Carte  
+
+[DECISIONS ADEQUATION] La liste complète des pays ayant fait l’objet d’une décision d’adéquation 
+par la Commission Européenne 
+
+[DPF] Data Privacy Framework – Transfert de données UE-USA 
+
+[AITD] CNIL – Guide pratique – Analyse d’impact des transferts de données 
+
+[CCT] Décision d’exécution (UE) 2021/914 de la Commission du 4 juin 2021 relative aux clauses 
+contractuelles types pour le transfert de données à caractère personnel vers des pays tiers en vertu du 
+
+RGPD 
+
+ 
+24 Doctrine « cloud au centre » sur l'usage de l'informatique en nuage au sein de l'État - Version du 25 mai 2023 
+- p.8 : Si le système ou l'application informatique traite des données, à caractère personnel ou non, d'une 
+sensibilité particulière et dont la violation est susceptible d'engendrer une atteinte à l'ordre public, à la sécurité 
+publique, à la santé et la vie des personnes ou à la protection de la propriété intellectuelle, l'offre de cloud 
+commerciale retenue devra impérativement respecter la qualification SecNumCloud (ou une qualification 
+européenne garantissant un niveau au moins équivalent, notamment de cybersécurité) et être immunisée 
+contre tout accès non autorisé par des autorités publiques d'État tiers. Dans le cas contraire, le recours à une 
+offre de cloud commerciale qualifiée SecNumCloud et immunisée contre tout accès non autorisé par des 
+autorités publiques d'Etat tiers n'est pas requis. 
+25 En particulier l’article 19.6. Protection vis-à-vis du droit extra-européen 
+
+ 
+
+
+
+v.1 
+
+[VOCABULAIRE IA] Liste relative au vocabulaire de l'intelligence artificielle (termes, expressions et 
+
+définitions adoptés)  
+
+[FICHES PRATIQUES IA] CNIL - Les fiches pratiques IA – Développement d’un système d’IA 
+
+[API] CNIL – Recommandation technique relative à l’utilisation des interfaces de programmation 
+applicatives (API) pour le partage sécurisé de données à caractère personnel 
+
+[CADA] Code des relations entre le public et l’administration ; CNIL - Guide pratique de la publication 
+en ligne et de la réutilisation des données publiques (« Open Data ») 
+
+[OPEN SOURCE] Data.gouv.fr26 – Licences de réutilisation 
+
+[SREN] Loi n° 2024-449 du 21 mai 2024 visant à sécuriser et à réguler l'espace numérique 
+
+ 
+
+Grille d’évaluation de la conformité 
+
+1. Description du projet 
+
+1.1. Contexte 
+Objectif : Déterminer les services académiques concernés par le projet et l’applicabilité du 
+[RIA] 
+
+Evaluation 
+ 
+
+ Le projet concerne principalement les services académiques administratifs 
+ Le projet concerne principalement le numérique éducatif (enseignement) 
+ Le [RIA] ne s’applique pas27 
+
+ 
+
+ 
+
+Recommandation 
+ 
+
+➢ Pour déterminer avec certitude que le [RIA] ne s’applique pas, il convient de s’assurer avec le 
+porteur de projet que le projet est mis en service uniquement à des fins de recherche et de 
+développement scientifique28 ou que celui-ci ne constitue que des activités de recherche, 
+d’essai et de développement avant mise sur le marché ou mise en service du SIA ou du 
+modèle d’IA29.  
+
+ 
+
+ 
+
+1.2. IA Interdite / Autres règlementations applicables 
+Objectif : Déterminer si le projet impliquant une IA peut constituer une pratique interdite 
+par le RIA et quelle règlementation autre que le RIA et le RGPD s’applique 
+
+➢ A partir de la description du service dans lequel s’intègre l’IA, des finalités pour lesquelles elle 
+est utilisée et du rôle de l’IA, déterminer si son usage peut représenter une pratique interdite 
+
+par le [RIA].  
+ 
+
+ 
+26 https://www.data.gouv.fr/fr/pages/legal/licences/  
+27 Articles 2.2.6 et 2.2.8 du RIA 
+28 Article 2.2.6 RIA 
+29 Article 2.2.8 du RIA 
+
+ 
+
+
+
+v.1 
+
+➢ A partir de la description du service dans lequel s’intègre l’IA, des finalités pour lesquelles elle 
+
+est utilisée et du rôle de l’IA, déterminer si lesdites finalités sont déterminées, explicites et 
+légitimes30. 
+ 
+
+➢ A partir de la description du projet, déterminer si les réglementations suivantes s’appliquent :  
+
+o Le [CRA] s’applique si le projet a pour objectif de mettre sur le marché un produit 
+logiciel ou matériel et ses solutions de traitement de données à distance. 
+ 
+
+o [eIDAS] s’applique si le projet a pour finalité l’authentification, la signature 
+
+électronique, le cachet électronique, l’horodatage électronique, l’envoi recommandé 
+électronique et à l’authentification de sites internet. 
+
+ 
+
+o Le [RGS] s’applique si le projet a pour finalité l’échange d’informations et les relations 
+
+du porteur de projet avec les usagers ou avec d’autres administration. 
+ 
+
+o [DEVSECOPS] et [Sécurité IA] doivent être appliqués si le porteur de projet développe 
+
+une solution d’IA générative reposant sur des LLM. 
+ 
+
+o [SI DE L’ETAT] s’applique si le projet fait-il partie du système d’information de l’Etat ; 
+Concrètement, s’il constitue une infrastructure ou un service logiciel permettant de 
+
+collecter, traiter, transmettre et stocker les données qui concourent aux missions des 
+services de l’Etat. 
+
+ 
+o La [PSSIE]  s'applique à tous les systèmes d'information (SI) des administrations de 
+
+l'État : ministères, établissements publics sous tutelle d'un ministère, services 
+déconcentrés de l'Etat et autorités administratives indépendantes.  
+
+ 
+
+Par ailleurs, selon le stade et l’objectif du projet, les référentiels respectés pour le 
+développement/conception ou le déploiement du système d’IA : 
+
+o  [SECURITE CNIL] CNIL - Guide pratique RGPD – Sécurité des données personnelles – 
+Version 2024 
+
+o [ISO] Norme internationale type ISO 27001, 27701 etc. 
+o [DEV CNIL] CNIL - Guide RGPD du développeur 
+o [API] CNIL – Recommandation technique relative à l’utilisation des interfaces de 
+
+programmation applicatives (API) pour le partage sécurisé de données à caractère 
+
+personnel 
+o [FICHES PRATIQUES IA] 
+
+ 
+
+Evaluation 
+ 
+Le projet parait constituer une pratique interdite en matière d’IA31 : 
+
+ Il risque de causer un préjudice important ou l’altération du comportement d’une personne 
+par l’utilisation d’une IA, par la manipulation ou l’exploitation de ses vulnérabilités. 
+
+ Evaluations ou classifications de personnes, notamment via l’analyse de leurs émotions, leur 
+comportement social (note sociale) ou leurs caractéristiques personnelles. 
+
+ Profilage d’une personne destiné à déterminer le risque qu’elle commette des infractions. 
+
+ 
+30 Article 5.1.b du RGPD 
+31 Article 5 RIA 
+
+ 
+
+
+
+v.1 
+
+ Utilisations d’IA sur des données biométriques comme le moissonnage d’images sur internet, 
+la catégorisation de personnes sur la base de données sensibles (race, opinion politique, 
+religieuse, syndicale etc.), ou l’identification à distance en temps réelle dans un espace 
+accessible au public. 
+
+ 
+
+ 
+
+Evaluation 
+ 
+Les finalités pour lesquelles l’IA est ou va être utilisée paraissent déterminées, explicites et légitimes : 
+
+ Oui 
+ Non 
+
+ 
+
+Evaluation 
+ 
+Les règlementations suivantes s’appliquent au projet :  
+ 
+
+  [CRA] Règlement (UE) 2024/2847 du parlement européen et du conseil du 23 octobre 2024 
+concernant des exigences de cybersécurité horizontales pour les produits comportant des 
+éléments numériques 
+
+ [eIDAS] Règlement (UE) n°910/2014 du Parlement européen et du Conseil du 23 juillet 2014 
+sur l’identification électronique et les services de confiance pour les transactions 
+électroniques au sein du marché intérieur 
+
+ [NIS 2] Directive (UE) 2022/2555 du Parlement européen et du Conseil du 14 décembre 2022 
+concernant des mesures destinées à assurer un niveau élevé commun de cybersécurité dans 
+l’ensemble de l’Union32 
+
+ [SREN] LOI n° 2024-449 du 21 mai 2024 visant à sécuriser et à réguler l'espace numérique33 
+ [RGS] Ordonnance n° 2005-1516 du 8 décembre 2005 relative aux échanges électroniques 
+
+entre les usagers et les autorités administratives et entre les autorités administratives et 
+décret d’application n°210-112 du 2 février 2010 
+
+ [SI DE L’ETAT] Décret n° 2019-1088 du 25 octobre 2019 relatif au système d'information et de 
+communication de l'Etat et à la direction interministérielle du numérique 
+
+ [DEVSECOPS] ANSSI - méthodologie qui vise à inclure les pratiques de sécurité dans le 
+processus de développement et de mise en production d'applications. 
+
+ [Sécurité IA] ANSSI - Les recommandations de sécurité pour un système d’IA générative 
+ [PSSIE] Politique de sécurité des systèmes d’information de l’État (PSSIE), portée par la 
+
+circulaire du Premier ministre n°5725/SG du 17 juillet 2014 
+ [SECURITE CNIL] CNIL - Guide pratique RGPD – Sécurité des données personnelles – Version 
+
+2024 
+ [ISO] Norme internationale type ISO 27001, 27701 etc. 
+ [DEV CNIL] CNIL - Guide RGPD du développeur 
+ [API] CNIL – Recommandation technique relative à l’utilisation des interfaces de 
+
+programmation applicatives (API) pour le partage sécurisé de données à caractère personnel 
+ [FICHES PRATIQUES IA] 
+
+ 
+
+Recommandations 
+ 
+
+➢ Le cas échéant, se rapprocher du porteur de projet pour confirmer la qualification du SIA et 
+interdire le développement ou l’usage de l’IA.  
+
+ 
+32 Attente de la transcription nationale (prévue avant le 17 octobre 2024) 
+33 En particulier article 31 
+
+ 
+
+
+
+v.1 
+
+➢ Des travaux de conformité supplémentaires devront être mis en œuvre en fonction des 
+règlementations applicables.  
+
+➢ En l’absence de transposition en droit français, l’applicabilité de [NIS 2] est incertaine. Le 
+questionnaire devra être mis à jour dès que sa transposition sera entrée en vigueur.  
+
+ 
+
+ 
+
+1.3. IA ou algorithme 
+Objectif : Déterminer si le projet implique une IA ou un algorithme ne pouvant pas être 
+qualifié d’IA 
+
+➢ En s’appuyant sur les définitions d’Intelligence artificielle, Système d’IA et d’algorithme, 
+déterminer à partir des réponses données au point 1.2 du questionnaire si le projet implique 
+une IA.  
+ 
+
+➢ En cas de réponse « je ne sais pas » déterminer à partir des cases cochées par le porteur de 
+projet si le projet implique une IA. Toute case cochée autre que « aucune de ces réponses » et 
+« je ne sais pas » impliquerait l’utilisation d’une IA. 
+
+Evaluation 
+ 
+Le projet implique : 
+
+ L’utilisation d’un algorithme simple qui n’est pas une IA 
+ L’utilisation d’une IA  
+
+ 
+
+ 
+Recommandation 
+
+ 
+➢ Si le projet n’implique pas l’utilisation d’une IA, mettre fin à la procédure de conformité IA et 
+
+basculer, en cas de traitement de données personnelles, sur la procédure habituelle de 
+conformité RGPD. 
+ 
+
+ 
+
+1.4. Prise de décision automatisée 
+Objectif : Déterminer si l’utilisation de l’IA constitue une prise de décision automatisée 
+produisant des effets juridiques ou similaires 
+
+➢ Si les deux premières cases sont cochées, le projet ne parait pas conduire à une prise de 
+décision automatisée ; 
+
+ 
+➢ Si la troisième case est cochée, la prise de décision automatisée parait constituée ; 
+
+ 
+➢ Si la case « je ne sais pas » est constituée, traiter la problématique au moment de la 
+
+détermination de la sensibilité du traitement.  
+
+Evaluation 
+ 
+Le projet implique : 
+
+ Parait impliquer une prise de décision automatisée 
+ Ne parait pas impliquer de prise de décision automatisée  
+
+ 
+
+ 
+
+ 
+
+
+
+v.1 
+
+Recommandation 
+ 
+
+➢ Le cas échéant, déterminer avec l’aide du porteur de projet si une prise la prise de décision 
+automatisée produit des effets juridiques ou des effets similaires34. 
+
+ 
+
+ 
+
+2. Traitement de données à caractère personnel et d’une sensibilité 
+
+particulière 
+Objectif : Déterminer l’applicabilité du RGPD  
+
+➢ Si le projet d’IA s’intègre dans un traitement déjà référencé dans le registre des traitements du 
+
+porteur de projets, alors le traitement de données à caractère personnel apparait constitué ; 
+ 
+
+➢ Si la case « je ne sais pas » est cochée à la question 2, déterminer à partir des cases cochées à la 
+question 3 si des données à caractère personnel sont traitées – et si des données à caractère 
+
+personnel sensibles35 sont traitées.  
+ 
+
+➢ [CLOUD AU CENTRE], [SECNUMCLOUD] et la [SREN] s’appliquent si le projet a recours à un 
+service d'informatique en nuage fourni par un prestataire privé pour la mise en œuvre de 
+systèmes ou d'applications informatiques36 qui implique le traitement des typologies de 
+
+données suivantes (cochez les cases correspondantes) :  
+o les données qui relèvent de secrets protégés par la loi (par exemple, les secrets liés aux 
+
+délibérations des autorités relevant du pouvoir exécutif, à la vie privée, au secret 
+médical, des affaires…) ; 
+
+o les données nécessaires à l’accomplissement des missions essentielles de l’État, 
+notamment la sauvegarde de la sécurité nationale, le maintien de l’ordre public et la 
+protection de la santé et de la vie des personnes.  
+
+ 
+
+Evaluation 
+ 
+Le projet : 
+
+ Engendre un traitement sur des données à caractère personnel  
+ N’engendre pas de traitement sur des données à caractère personnel 
+
+ 
+
+Evaluation 
+ 
+[SECNUMCLOUD]37 l’article 31 de la loi SREN s’appliquent : 
+
+ Oui 
+ Non 
+
+ 
+34 Article 22 RGPD – Lignes directrices [PROFILAGE] 
+35 Article 9 du RGPD : « Le traitement des données à caractère personnel qui révèle l'origine raciale ou ethnique, 
+les opinions politiques, les convictions religieuses ou philosophiques ou l'appartenance syndicale, ainsi que le 
+traitement des données génétiques, des données biométriques aux fins d'identifier une personne physique de 
+manière unique, des données concernant la santé ou des données concernant la vie sexuelle ou l'orientation 
+sexuelle d'une personne physique sont interdits. » 
+36 Article 31 SREN 
+37 En particulier l’article 19.6. Protection vis-à-vis du droit extra-européen 
+
+ 
+
+
+
+v.1 
+
+ 
+
+Recommandations 
+ 
+
+➢ En cas d’absence de traitement de données à caractère personnel le RGPD ne s’applique pas. 
+Le point 4 de la procédure n’est pas traité.  
+
+➢ Si le traitement est référencé dans le registre, la fiche permettra de définir précisément la 
+base légale et les données traitées. 
+
+➢ Le recensement des données traitées effectué par le porteur de projet devra être intégré à la 
+fiche de traitement. 
+
+➢ Si des données personnelles sensibles ou hautement personnelles sont traitées, intégrer ce 
+critère à l’analyse de la sensibilité du traitement (AIPD). 
+
+➢ Pour déterminer l’applicabilité du [SECNUMCLOUD] et de [SREN], s’appuyer sur les travaux 
+ministériels et s’assurer que le projet implique l’utilisation d’un cloud. 
+
+3. Acteurs du projet intégrant une IA 
+Objectif : Déterminer les acteurs du projet et leurs rôles au sens du RGPD et du RIA 
+
+➢ A partir des définitions de fournisseur et de déployeur, de la présence ou non d’un acteur 
+
+externe et de son rôle le cas échéant, déterminer le statut du porteur de projet.  
+o Si le porteur de projet développe et entraine lui-même une IA, il doit être qualifié de 
+
+fournisseur.  
+
+o La présence d’un acteur externe peut entrainer les deux qualifications :  
+▪ Le porteur de projet est fournisseur si c’est l’acteur externe qui développe une 
+
+IA pour son compte et que le produit est diffusé sous le nom du porteur de 
+projet.  
+
+▪ Le porteur est déployeur s’il utilise uniquement une offre commerciale ou une 
+solution open source. 
+
+▪ Le porteur de projet peut à la fois être fournisseur et déployeur. 
+  
+
+➢ A partir des définitions de responsable du traitement et de sous-traitant, et de la présence ou 
+non d’un acteur externe, déterminer le statut du porteur de projet : 
+
+o Le porteur de projet est sous-traitant s’il développe et/ou met en œuvre une IA pour le 
+compte d’un tiers.  
+
+o Le porteur de projet est responsable du traitement dans les autres cas ; il est possible 
+qu’il soit responsable conjointement du traitement avec un autre acteur.  
+ 
+
+➢ Plusieurs acteurs peuvent intervenir dans le développement d’un système d’IA, avec divers 
+degrés d’implication sur les traitements de données personnelles. Il y a notamment : 
+ le fournisseur de système d’IA qui développe ou fait développer un système et qui le met 
+
+sur le marché ou le met en service sous son propre nom ou sa propre marque, à titre 
+onéreux ou gratuit. 
+
+ les importateurs, distributeurs, et les utilisateurs de ces systèmes (entendus comme les 
+personnes déployant les systèmes d’IA). 
+
+Le responsable du traitement est la personne physique ou morale qui détermine les objectifs et 
+les moyens du traitement, c’est-à-dire qui décide du « pourquoi » et du « comment » de 
+l’utilisation de données personnelles38. 
+ 
+
+➢ Les moyens essentiels du traitement sont ceux qui sont étroitement liés à l’objectif et à la 
+portée du traitement, tels que le type de données personnelles qui sont collectées et utilisées, 
+
+ 
+38 https://www.cnil.fr/fr/determiner-la-qualification-juridique-des-fournisseurs-de-systemes-dia  
+
+ 
+
+
+
+v.1 
+
+les supports matériels et logiciels utilisés pour le traitement ainsi que leur sécurisation, la durée 
+
+du traitement, les catégories de destinataires et les catégories de personnes concernées. 
+ 
+
+➢ Lorsque le fournisseur entraine son système d’IA avec des données collectées par un autre 
+organisme, il est nécessaire de distinguer : 
+
+ 
+ le diffuseur des données : la personne physique ou morale, publique ou privée, qui met à 
+
+disposition des données personnelles ou une base de données personnelles à des fins de 
+réutilisation ; 
+
+ le réutilisateur des données : la personne physique ou morale, publique ou privée, traitant 
+ces données ou bases de données en vue d’une exploitation de celles-ci pour son propre 
+compte. 
+
+Le diffuseur et le réutilisateur des données sont, en principe, responsables de traitements 
+distincts puisque chacun détermine les objectifs et les moyens essentiels de son propre 
+traitement. 
+ 
+
+➢ Lorsqu’une base de données d’apprentissage d’un système d’IA est alimentée par plusieurs 
+responsables de traitement pour un objectif conjointement défini, ces derniers peuvent être 
+qualifiés de responsables conjoints du traitement. 
+
+ 
+
+➢ A partir de la réponse du porteur de projet et des informations disponibles sur les plans de 
+formation nationaux et académiques, déterminer si la maitrise de l’IA39 par les personnels du 
+porteur de projet est suffisante.  
+
+Evaluation 
+ 
+Le porteur de projet (service académique, EPLE ou établissement du 1er degré) est : 
+
+ Un déployeur  
+ Un fournisseur 
+ Un déployeur et un fournisseur 
+ Aucune de ces solutions 
+
+ 
+
+ 
+
+Evaluation 
+ 
+Le porteur de projet est (Choix multiples): 
+
+ Responsable du traitement  
+ Responsable du traitement en tant que diffuseur des données ou réutilisateur des données 
+ Responsable conjoint du traitement avec une ou plusieures autres entités 
+ Sous-traitant 
+
+ 
+
+Evaluation 
+Le personnel du porteur de projet a été suffisamment formé sur le fonctionnement et l’utilisation de 
+l’IA : 
+
+ Oui 
+ Non 
+
+ 
+
+Recommandations 
+ 
+
+ 
+39 Article 4 RIA 
+
+ 
+
+
+
+v.1 
+
+ 
+➢ Le porteur de projet endosse tout ou partie de la responsabilité des traitements en fonction 
+
+de son statut de responsable du traitement ou de sous-traitant.  
+ 
+
+➢ L’accompagnement du porteur de projet devra être impératif s’il s’agit d’un service 
+académique ou d’une école (1D) ; il prendra la forme de recommandations concernant un 
+EPLE. 
+ 
+
+➢ Dans le cas où le porteur de projet est déployeur et fournisseur, l’ensemble des obligations, 
+prévues dans le RIA, relatives aux deux statuts s’appliquent. 
+
+ 
+➢ En cas de traitement de données, l’existence d’un acteur externe peut nécessiter la 
+
+conclusion d’un acte juridique contraignant (contrat de sous-traitance, accord de 
+confidentialité (NDA), accord de responsabilité conjointe).  
+ 
+
+➢ En cas d’absence de formation, ou en cas de formation insuffisante des personnels au 
+fonctionnement et à l’utilisation de l’IA, articuler les actions à mener avec les plans de 
+formation nationaux et académiques en cours ou prévus.  
+
+ 
+
+4. [Si traitement DCP] Privacy by design 
+ 
+
+Notice concernant la conformité au RGPD 
+➢ Les aspects relatifs à la protection des données étudiés via cette procédure sont ceux qui 
+
+permettent aux DRASI, DRANE et DPO de référencer les projets d’IA mis en œuvre dans leur 
+académie et d’en analyser sans délais les points considérés comme les plus sensibles et 
+bloquants (Fondement, régime juridique, finalités, sous-traitance, transfert de données hors 
+UE, AIPD). 
+ 
+
+➢ La tenue du registre des traitements40, les mesures relatives à la transparence41 et aux droits 
+des personnes concernées42, la minimisation, l’exactitude des données et la conservation des 
+données43, l’ensemble des mesures de sécurité44 ne sont pas traitées par cette procédure 
+pour faciliter sa complétion par les porteurs de projet. Il conviendra cependant de leur 
+rappeler leurs obligations en la matière et que l’analyse de la conformité du traitement au 
+RGPD doit être menée comme pour tout autre traitement de données.  
+
+ 
+➢ L’ensemble des points cités au point précédent seront analysés en cas de réalisation d’une 
+
+AIPD. 
+ 
+
+➢ Ces points pourront être développés dans une version ultérieure de la procédure. 
+
+ 
+
+4.1. Détermination de la phase du projet 
+Objectif : Déterminer le régime juridique applicable au projet (développement ou 
+
+déploiement). En cas de développement, effectuer un premier audit des actions de 
+conformité.  
+
+ 
+40 Article 30 RGPD 
+41 Articles 12, 13 et 14 du RGPD 
+42 Articles 15 et suivants du RGPD 
+43 Article 5 RGPD 
+44 Articles 5 et 32 du RGPD 
+
+ 
+
+
+
+v.1 
+
+➢ Après un examen de cohérence entre les réponses formulées au point 3 « acteurs du projet 
+
+intégrant une IA » et celles formulées au point 4.1 « détermination de la phase du projet », 
+déterminer la phase de projet : 
+
+o Si l’IA est conçue et/ou développée et/ou entrainée par le porteur de projet, ou pour le 
+compte et au nom du porteur de projet, le projet est en phase de développement ; 
+
+o Si l’IA a été développée par un acteur externe est qu’elle est uniquement utilisée par le 
+porteur de projet, alors le projet est en phase de déploiement. 
+ 
+
+➢ En cas de projet en phase de développement, et conformément aux [FICHES PRATIQUES IA], 
+
+déterminer le niveau de conformité du projet ; chaque case non cochée ou chaque élément 
+non cohérent communiqué par le porteur de projet constitue une action de conformité à 
+mener. 
+
+Evaluation 
+ Le projet est en phase de développement 
+ Le projet est en phase de déploiement 
+
+ 
+
+Evaluation 
+  La phase de développement garantit les droits et libertés des personnes concernées 
+ La phase de développement dispose de lacunes de conformité. Référencer les étapes du 
+
+processus manquantes :  
+
+• Définition du régime juridique applicable; 
+• Définition de la finalité ; 
+• Qualification juridique des acteurs (responsable du traitement/sous-traitant); 
+• Base légale identifiée / Licéité du développement de l’IA ; 
+• Le cas échéant, réalisation d’une AIPD ; 
+
+• Privacy by design ; 
+• Information des personnes ; 
+• Définition de procédures pour l’exercice des droits ; 
+• Annotation des données ;  
+
+• Sécurité du développement du système d’IA. 
+ 
+
+Recommandation 
+ 
+
+➢ Si le projet est en phase de développement et qu’il implique un traitement de données à 
+caractère personnel, le porteur de projet doit appliquer les [FICHES PRATIQUES IA]. 
+
+ 
+
+4.2. [Si traitement non référencé dans le registre] Base légale du projet45 
+Objectif : Déterminer le fondement juridique du traitement de données 
+
+➢ Le cas échéant, analyser le texte législatif ou réglementaire renseigné par le porteur de projet 
+pour déterminer si le projet est fondé sur une obligation légale46 ou une mission d’intérêt 
+public47 
+
+ 
+
+ 
+45 Article 6 RGPD ; licéité appliquée à l’IA : https://www.cnil.fr/fr/assurer-que-le-traitement-est-licite ; Article 
+59 RIA 
+46 Article 6 RGPD ; Obligation légale : https://www.cnil.fr/fr/les-bases-legales/obligation-legale  
+47 Article 6 RGPD ; Mission d’intérêt public : https://www.cnil.fr/fr/les-bases-legales/mission-interet-public  
+
+ 
+
+
+
+v.1 
+
+➢ Si le projet est fondé sur le consentement48, vérifier qu’il est libre, spécifique, éclairé et 
+
+univoque. 
+ 
+
+➢ Si le projet est fondé sur un contrat49, vérifier que le contrat est une base légale adéquate, en 
+déterminant en particulier si les personnes concernées sont bien parties au contrat. 
+ 
+
+Evaluation 
+ Le traitement apparait licite (hors intérêt légitime) et fondé sur :  
+
+o Une obligation légale 
+
+o Une mission d’intérêt public 
+o Le consentement 
+o Un contrat 
+o La sauvegarde des intérêts vitaux 
+
+ Le traitement apparait fondé sur l’intérêt légitime  
+ Le traitement n’apparait pas correctement fondé juridiquement 
+
+ 
+
+Recommandations 
+ 
+
+➢ Si le projet est fondé sur l’intérêt légitime, se reporter aux [FICHES PRATIQUES IA]50 et [CEPD 
+IA] et à la doctrine de la CNIL51 pour déterminer la pertinence et la licéité de cette base 
+légale.  
+ 
+
+➢ Attention, concernant les organismes publics, l’intérêt légitime peut être utilisé lorsqu’une 
+autorité publique souhaite développer un système d’IA uniquement lorsque les activités 
+visées ne sont pas strictement nécessaires à l’exercice de ses missions spécifiques mais pour 
+d’autres activités légalement mises en œuvre (comme par exemple, les traitements de 
+gestion des ressources humaines).52 
+
+ 
+➢ Si le projet n’apparait pas correctement fondé juridiquement, revoir la détermination de la 
+
+base légale du traitement avec le porteur de projet.  
+ 
+
+➢ Si le traitement apparait fondé juridiquement, s’assurer que cette information a été intégrée 
+à la fiche de traitement.  
+ 
+
+ 
+
+4.3. [Le cas échéant] Identification du prestataire, des destinataires et du 
+lieu de traitement des données 
+
+Objectif : Garantir la maitrise des données, les transferts de données hors UE et un 
+encadrement juridique conforme des relations entre le porteur de projet et un acteur tiers 
+
+➢ A partir de la nationalité de l’entreprise (prestataire), des sous-traitants ultérieurs recensés, des 
+
+modalités de stockage des données (on premise / cloud computing), des lieux de traitement 
+et/ou stockage des données, déterminer l’existence d’un transfert de données à caractère 
+
+ 
+48 Articles 6, 7 et 8 RGPD ; Consentement : https://www.cnil.fr/fr/les-bases-legales/consentement  
+49 Article 6 RGPD ; Contrat : https://www.cnil.fr/fr/les-bases-legales/contrat  
+50 En particulier https://www.cnil.fr/fr/base-legale-interet-legitime-developpement-systeme  
+51Article 6 RGPD ; Intérêt légitime : https://www.cnil.fr/fr/les-bases-legales/interet-legitime  
+52 ibid 
+
+ 
+
+
+
+v.1 
+
+personnel en dehors de l’UE/EEE, y compris conséquemment à l’extraterritorialité d’un droit 
+
+étranger53 (extra-européen). 
+o Il peut ressortir clairement des réponses que des données sont traitées ou stockées en 
+
+dehors du territoire de l’UE. 
+o Dans le cadre de l’analyse, si la nationalité du prestataire (personne morale) n’est pas 
+
+européenne, il sera considéré a priori qu’il est soumis à un droit extraterritorial 
+pouvant impliquer un transfert de données en dehors de l’UE. 
+ 
+
+➢ Le cas échéant, à partir du document contractuel renseigné par le porteur de projet, de la 
+
+qualité du signataire du contrat et du statut du prestataire défini au point 3, déterminer si le 
+document contractuel est adéquat et conforme.  
+
+o La relation, sans transfert de données hors UE ni extraterritorialité d’un droit étranger, 
+
+avec un prestataire qualifié de responsable conjoint du traitement ou de sous-traitant 
+nécessite un contrat standard conforme au RGPD54 ; 
+
+o La relation avec un prestataire impliquant un transfert de données hors UE nécessitera 
+un contrat adapté au cas d’espèce et présentant des garanties suffisantes ;  
+
+o La relation avec un prestataire soumis à un droit étranger extraterritorial nécessitera 
+un contrat adapté cas d’espèce et présentant des garanties suffisantes. 
+ 
+
+Evaluation 
+La relation avec le prestataire et/ou ses sous-traitants ultérieurs engendre : 
+
+ Implique un transfert en dehors de l’UE 
+ N’implique pas de transfert de données en dehors de l’UE 
+ Ne peut pas être déterminé en l’absence d’informations complémentaires 
+
+ 
+
+Evaluation 
+Le prestataire et/ou ses sous-traitants ultérieurs : 
+
+ Est soumis à un droit extraterritorial  
+ N’est pas soumis à un droit extraterritorial 
+ Ne peut pas être déterminé en l’absence d’informations complémentaires 
+
+ 
+
+Evaluation 
+Les relations avec le prestataire nécessitent un encadrement juridique :  
+
+ Standard entre responsables conjoints du traitement 
+ Standard entre un responsable du traitement et un sous-traitant 
+ Adapté afin qu’il présente des garanties suffisantes 
+
+ 
+ 
+
+Recommandations 
+ 
+
+➢ En cas de prestataire extra-européen déterminer grâce au [SECNUMCLOUD], et en particulier 
+son article 19.6, si les relations du porteur de projet avec ce prestataire impliquent 
+effectivement l’extraterritorialité d’un droit extra-européen. 
+ 
+
+➢ En cas de transfert de données en dehors du territoire de l’Union Européenne, se référer aux 
+[DECISIONS ADEQUATION] et recourir au guide [AITD] pour déterminer si les relations avec 
+
+ 
+53 C’est par exemple le cas pour toute entreprise américaine à laquelle s’appliquent le Cloud Act, le Patriot Act, 
+FISA, FCPA.  
+54 Articles 26 (responsables conjoints) ou 28 (sous-traitant) du RGPD 
+
+ 
+
+
+
+v.1 
+
+ce prestataire sont possibles et l’encadrement contractuel adapté. Si le pays d’origine du 
+prestataire fait l’objet d’une décision d’adéquation, l’AITD n’est pas nécessaire. 
+
+ 
+➢ S’assurer que les destinataires renseignés figurent dans la fiche de traitement.  
+
+ 
+
+4.4. Qualification du risque  
+Objectif : Déterminer si une analyse d’impact relative à la protection des données est 
+nécessaire 
+
+➢ A partir de la description du projet et des cases cochées par le porteur de projet, déterminer si 
+la réalisation d’une AIPD est obligatoire : 
+
+o Si deux critères ou plus sont remplis, l’AIPD est obligatoire.  
+o Si un critère est rempli, l’AIPD peut être obligatoire.  
+o Si aucun critère n’est rempli, l’AIPD n’est pas obligatoire.  
+
+Evaluation 
+ 
+Une analyse d’impact relative à la protection des données : 
+
+ Doit être menée avant la mise en œuvre du traitement (2 critères ou plus) 
+ Peut être menée avant la mise en œuvre du traitement (1 seul critère) 
+ N’est pas nécessaire 
+
+ 
+
+Recommandations 
+ 
+
+➢ Si un seul critère est coché, s’appuyer sur les lignes directrices [AIPD] pour déterminer si une 
+AIPD est obligatoire.  
+ 
+
+➢ Se reporter aux lignes directrices [AIPD] pour déterminer si les personnes concernées sont 
+vulnérables dans le cas d’espèce, notamment  en présence de salariés ou de mineurs. 
+
+ 
+➢ La réalisation de l’AIPD est une obligation pesant sur le responsable du traitement et, si 
+
+nécessaire, sur son sous-traitant.  
+ 
+
+➢ Le critère « Usage innovant ou application de nouvelles solutions technologiques ou 
+organisationnelle » n’est pas toujours rempli en cas d’usage d’une IA ; voir la fiche 5 des 
+[FICHES PRATIQUES IA]. 
+ 
+
+ 
+
+5. Conformité IA dès la conception  
+
+5.1. Identification du système d’IA et des obligations 
+correspondantes 
+
+Objectif : Déterminer si le projet constitue un SIA à haut risque, un modèle d’IA à usage 
+général ou un système d’IA impliquant une obligation de transparence 
+
+➢ Un système d’IA mis sur le marché ou mis en service est considéré comme étant à haut risque 
+lorsque les deux conditions suivantes sont remplies55: 
+
+ 
+55 Article 6.1 et Annexe I RIA 
+
+ 
+
+
+
+v.1 
+
+o le système d’IA est destiné à être utilisé comme composant de sécurité d’un produit 
+
+couvert par la législation d’harmonisation de l’Union, ou le système d’IA constitue lui-
+même un tel produit; 
+
+o le produit dont le composant de sécurité visé au point précédent est le système d’IA, 
+ou le système d’IA lui-même en tant que produit, est soumis à une évaluation de 
+
+conformité par un tiers en vue de la mise sur le marché ou de la mise en service de ce 
+produit conformément à la législation d’harmonisation de l’Union. 
+ 
+
+➢ Le projet est considéré comme étant à haut risque si l’IA est utilisée pour une ou plusieurs des 
+
+finalités suivantes56 :  
+
+o à identifier, classifier ou reconnaitre les émotions à l’aide d’un dispositif biométrique ; 
+
+o à déterminer l'affectation des élèves à des établissements d'enseignement ou de 
+
+formation professionnelle, à tous les niveaux; 
+
+o à évaluer les acquis d'apprentissage et orienter le processus d'apprentissage des élèves; 
+
+o à évaluer le niveau d'enseignement approprié qu'une personne recevra ou sera en 
+
+mesure d'atteindre ; 
+
+o à surveiller et détecter des comportements interdits chez les étudiants lors d'examens ; 
+
+o au recrutement ou la sélection de personnes physiques, en particulier pour publier des 
+
+offres d'emploi ciblées, analyser et filtrer les candidatures et évaluer les candidats; 
+
+o à prendre des décisions influant sur les conditions des relations professionnelles 
+
+(attribution de tâches, promotion ou licenciement etc.) sur la base du comportement 
+
+individuel, de traits de personnalité ou de caractéristiques personnelles ou pour suivre 
+
+et évaluer les performances et le comportement de personnes. 
+
+o à évaluer l'éligibilité des agents aux prestations et services d'aide sociale essentiels ainsi 
+
+que pour octroyer, réduire, révoquer ou récupérer ces prestations et services. 
+
+  
+
+➢ A partir des réponses au point 1 et aux cases cochées par le porteur de projet, l’IA n’est pas 
+considérée comme étant à haut risque si57 elle est destinée à :  
+
+o Accomplir une tâche procédurale étroite ; 
+o Améliorer le résultat d’une activité humaine préalablement réalisée ;  
+
+o Détecter les constantes en matière de prise de décision ou les écarts par rapport aux 
+constantes habituelles et ne substitue pas à l’évaluation humaine préalablement 
+réaliser ni à l’influencer ;  
+
+o Exécuter une tâche préparatoire en vue d’une évaluation pertinente. 
+
+ 
+
+➢ Le projet implique une obligation particulière de transparence58 si l’IA dispose d’une ou 
+
+plusieurs des fonctionnalités suivantes, cochées ou non par le porteur de projet :  
+o Elle interagit directement avec des personnes physiques ; 
+
+o Elle génère des contenus de synthèse (audio, image, vidéo, texte) ; 
+o Elle permet de reconnaitre les émotions ou permet la catégorisation biométrique ; 
+
+ 
+56 Article 6.2 et Annexe III RIA 
+57 Article 6.3 RIA 
+58 Article 50 RIA 
+
+ 
+
+
+
+v.1 
+
+o Elle génère ou manipule des images ou contenus audio ou vidéo constituant un 
+
+hypertrucage ; 
+o Elle génère ou manipule des textes publiés dans le but d’informer des questions 
+
+d’intérêt public. 
+ 
+
+➢ Le projet constitue un modèle d’IA à usage général s’il présente une généralité significative et 
+est capable d’exécuter de manière compétente un large éventail de tâches distinctes, 
+indépendamment de la manière dont le modèle est mis sur le marché. 
+ 
+
+➢ Le modèle d’IA à usage général peut présenter un risque systémique59 lorsqu’il dispose d’une 
+capacité à fort impact. A partir des éléments renseignés par le porteur de projet et des 
+
+informations disponibles publiquement si le modèle d’IA à usage général : 
+ 
+
+o La quantité cumulée de calcul utilisée pour son entrainement mesurée en opération en 
+virgules flottante est supérieur à 10 puissance 25 ; 
+
+o Une décision de la Commission considère le modèle d’IA dispose d’une capacité à fort 
+
+impact.  
+
+Evaluation 
+Le projet constitue un système d’IA à haut risque : 
+
+ Oui 
+
+ Non 
+
+ 
+
+Evaluation 
+Le projet constitue un système d’IA impliquant une obligation de transparence : 
+
+ Oui 
+
+ Non 
+
+ 
+
+Evaluation 
+Le projet constitue un modèle d’IA à usage général : 
+
+ Oui, et qui présente un risque systémique 
+
+ Oui, qui ne présente pas un risque systémique 
+
+ Non 
+
+ 
+
+Recommandations 
+ 
+
+➢ Les exemples de modèles d’IA à haut risque exposés ci-dessus sont ceux qui présentent le 
+plus de probabilité d’intervenir dans le secteur de l’éducation nationale. Cependant, 
+l’ensemble des cas référencés dans la liste prévue à l’annexe III du [RIA] devront être pris en 
+compte.   
+
+ 
+➢ En cas de modèle d’IA à usage général, une recherche complémentaire de la part des 
+
+évaluateurs peut s’avérer nécessaire pour déterminer s’il présente un risque systémique. 
+Cette recherche pourra mener à contacter le fournisseur du modèle.  
+
+ 
+
+ 
+59 Article 51 RIA 
+
+ 
+
+
+
+v.1 
+
+5.2. Obligations du fournisseur d’un modèle d’IA usage général60 
+Objectif : Déterminer la conformité du projet aux obligations du fournisseur d’un système 
+d’IA à usage général 
+
+➢ Recenser les formalités mises en œuvre par le porteur de projet fournisseur en fonction des 
+cases cochées. Si une ou plusieurs cases n’ont pas été cochées par le porteur de projet, la 
+
+conformité du projet au RIA n’est pas garantie. 
+
+Evaluation 
+ 
+La conformité au RIA est : 
+
+ Garantie 
+ Incomplète ; Cocher les mesures manquantes : 
+
+o La documentation technique du modèle (processus entrainement, essai, résultat de 
+
+l’évaluation) ; 
+o Les informations et la documentation à destination des fournisseurs intégrant le 
+
+modèle d’IA dans leur SIA leur permettant une compréhension des capacités et des 
+limites du modèle ; 
+
+o Une politique visant à se conformer au droit de l’Union en matière de droit d’auteur 
+et droits voisins ; 
+
+o Un résumé du contenu utilisé pour entrainer le modèle d’IA à usage général. 
+
+ 
+
+Recommandations 
+ 
+
+➢ Applicable aux fournisseurs à partir du 2 août 2025 
+
+ 
+
+− Obligations du fournisseur d’un modèle d’IA à usage général présentant 
+un risque systémique61 
+
+Objectif : Déterminer la conformité du projet aux obligations du fournisseur d’un système 
+d’IA à usage général présentant un risque systémique 
+
+➢ Recenser les formalités mises en œuvre par le porteur de projet fournisseur en fonction des 
+croix cochées. Si une ou plusieurs cases n’ont pas été cochées par le porteur de projet, la 
+
+conformité du projet au RIA n’est pas garantie. 
+
+Evaluation 
+La conformité au RIA est : 
+
+ Garantie 
+ Incomplète ; Cocher les mesures manquantes :  
+
+o Informer la Commission ; 
+o Evaluer les modèles ; 
+o Evaluer et atténuer les risques systémiques ; 
+o Communiquer aux autorités les informations concernant les incidents graves et mesures 
+
+correctives ; 
+o Apporter un niveau approprier de cybersécurité pour le modèle d’IA et son 
+
+infrastructure physique. 
+ 
+
+ 
+60 Article 53 RIA 
+61 Article 55 RIA 
+
+ 
+
+
+
+v.1 
+
+ 
+
+Recommandations 
+ 
+
+➢ Applicable aux fournisseurs à partir du 2 août 2025 
+➢ Avertir le porteur de projet des mesures de conformité à mettre en œuvre  
+
+ 
+
+5.3. Obligations relatives à un système d’IA à haut risque 
+Objectif : Déterminer la conformité du projet aux obligations du fournisseur et/ou déployeur 
+d’un système d’IA à haut risque 
+
+5.3.1. Obligations du fournisseur62 
+➢ Recenser les formalités mises en œuvre par le porteur de projet fournisseur en fonction des 
+
+croix cochées. Si une ou plusieurs cases n’ont pas été cochées par le porteur de projet, la 
+conformité du projet au RIA n’est pas garantie. 
+
+Evaluation 
+La conformité au RIA est : 
+
+ Garantie 
+
+ Incomplète ; Cocher les mesures manquantes : 
+o Mettre en place les actions prévues aux articles 8 à 15 du RIA relatives à(aux) :  
+
+▪ Système de gestion des risques ; 
+▪ Données et gouvernance des données ; 
+▪ La documentation technique63 ; 
+▪ L’enregistrement/journalisation ; 
+▪ La transparence et fourniture d’informations aux déployeurs ; 
+▪ Contrôle humain ; 
+▪ L’exactitude, robustesse et cybersécurité. 
+
+o Indiquer sur le SIA ou son emballage l’identification du fournisseur ; 
+o Mettre en place un système de gestion de la qualité ; 
+o Conserver la documentation (documentation technique, système gestion qualité…) ; 
+o Si sous son contrôle, tenir les journaux ; 
+o Veiller à ce que le SIA soit soumis à la procédure d’évaluation de la conformité ; 
+o Elaborer une déclaration UE de conformité ; 
+o Apposer le marquage CE sur le SIA ou sur son emballage ; 
+o Respecter les obligations en matière d’enregistrement ; 
+o Prendre les mesures correctives nécessaires et fournir les informations requises à 
+
+l’article 20 du RIA ; 
+o Prouver sur demande motivée d’une autorité nationale compétente la conformité 
+
+du SIA à haut risque avec les exigences ; 
+o Veiller à ce que le SIA soit accessible ; 
+o [Si SIA à haut risque biométrique64] Choisir l’une des procédures d’évaluation de la 
+
+conformité adaptée65 
+ 
+
+Recommandations 
+ 
+
+➢ Applicable aux fournisseurs à partir du 2 août 2026 
+➢ Avertir le porteur de projet des mesures de conformité à mettre en œuvre 
+
+ 
+62 Article 16, citant les articles 8 à 15 et l’annexe IV, et suivants du RIA (Sections II et III) 
+63 Annexe IV RIA 
+64 Annexe III point 1 
+65 Article 43 RIA 
+
+ 
+
+
+
+v.1 
+
+➢ Dans le cas où le fournisseur d’un SIA à haut risque cité par l’Annexe III point 1 a choisi 
+l’application de normes harmonisées pour démontrer sa conformité, vérifier que l’évaluation 
+de la conformité est conforme à l’article 43 du RIA.  
+
+ 
+
+5.3.2. Obligations du déployeur66 
+➢ Recenser les formalités mises en œuvre par le porteur de projet déployeur en fonction des 
+
+croix cochées. Si une ou plusieurs cases n’ont pas été cochées par le porteur de projet, la 
+conformité du projet au RIA n’est pas garantie. 
+
+Evaluation 
+La conformité au RIA est : 
+
+ Garantie  
+ Incomplète ; Cocher les mesures manquantes : 
+
+o Prendre les mesures techniques et organisationnelles afin de garantir que le porteur 
+de projet utilise le SIA conformément à la notice d’utilisation ; 
+
+o Confier le contrôle humain à des personnes qui disposent des compétences, 
+formation, autorité et soutien nécessaires ; 
+
+o Assurer de la pertinence et représentativité des données d’entrée le cas échéant ; 
+o Surveiller le fonctionnement du SIA HR sur la base de la notice d’utilisation ; 
+o Prévoir des mécanismes d’information/signalement ; 
+o Si sous son contrôle, assurer la tenue des journaux gérés automatiquement ; 
+o Information des IRP si utilisé par l’employeur sur le lieu de travail ; 
+o Utiliser les informations fournies au par le fournisseur réaliser l’AIPD ; 
+o Si utilisation d’un SIA à haut risque d’identification biométrique à distance a 
+
+posteriori, demander l’autorisation d’une autorité judiciaire ou administrative ; 
+o Informer des personnes concernées de l’existence, le cas échéant, d’une prise de 
+
+décision via l’IA. 
+o Mener une analyse d’impact sur les droits fondamentaux67 
+
+  
+ 
+
+Recommandations 
+ 
+
+➢ Applicable aux déployeurs à partir du 2 août 2026 
+➢ Avertir le porteur de projet des mesures de conformité à mettre en œuvre 
+➢ Un droit à l’explication des décisions individuelles est reconnu par le RIA68. 
+
+ 
+
+5.4. Système d’IA impliquant une obligation particulière de 
+transparence 
+
+Objectif : Déterminer la conformité relative aux obligations de transparence pesant sur le 
+fournisseur et/ou le déployeur de certains systèmes d’IA 
+
+5.4.1. Obligations du fournisseur69 
+➢ Pour les SIA développés pour interagir directement avec des personnes physiques, les 
+
+personnes doivent être informées qu’elles échangent avec une IA 
+ 
+
+➢ Pour les SIA, y compris à usage général, qui génèrent des contenus de synthèse :  
+
+ 
+66 Article 26 du RIA 
+67 Article 27 du RIA 
+68 Article 86 RIA 
+69 Article 50.1 et 50.1 du RIA 
+
+ 
+
+
+
+v.1 
+
+o Les contenus doivent être marqués comme ayant été générés par une IA 
+
+o Les solutions doivent être efficaces, interopérables, solides et fiables 
+ 
+
+➢ Si la case « La mesure d’information décrite ci-dessus n’a été prévue », l’information relative au 
+système d’IA n’est pas conforme et doit être revue ou mise en œuvre.  
+
+ 
+
+Evaluation 
+L’information relative au système d’IA est : 
+
+ Conforme 
+ Doit être prévue/revue 
+
+ 
+
+Recommandations 
+ 
+
+➢ Applicable aux fournisseurs à partir du 2 août 2026 
+➢ Avertir le porteur de projet des mesures de conformité à mettre en œuvre 
+
+ 
+
+5.4.2. Obligations du déployeur70 
+➢ Si le projet prévoit l’utilisation d’un système de reconnaissance des émotions ou d’un système 
+
+de catégorisation biométrique, une information des personnes qui y sont exposées sur 
+
+fonctionnement du système est obligatoire. 
+ 
+
+➢ Si l’IA utilisée dans le cadre du projet génère ou manipule des images ou des contenus audio ou 
+vidéo constituant un hypertrucage, il faut indiquer sur les contenus générés qu’ils l’ont été par 
+
+le biais de l’IA. 
+ 
+
+➢ Si l’IA utilisée dans le cadre du projet génère ou manipule des textes publiés dans le but 
+d’informer le public sur des question d’intérêt public sauf si contrôle éditorial ou humain, 
+
+indication obligatoire sur les contenus que le texte a été généré ou manipulé par une IA, sauf si 
+un contrôle éditorial ou humain effectif existe.  
+ 
+
+➢ Si la case « La mesure d’information décrite ci-dessus n’a été prévue », l’information relative au 
+
+système d’IA n’est pas conforme et doit être revue ou mise en œuvre.  
+
+ 
+
+Evaluation 
+L’information relative au système d’IA est : 
+
+ Conforme 
+ Doit être prévue/revue 
+
+ 
+
+Recommandations 
+ 
+
+➢ Applicable aux déployeurs à partir du 2 août 2026 
+➢ Avertir le porteur de projet des mesures de conformité à mettre en œuvre 
+
+ 
+
+ 
+70 Articles 50.3 et 50.4 du RIA
