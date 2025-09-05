@@ -154,8 +154,8 @@ app.post('/api/rag/create', async (req, res) => {
 // Endpoint pour vérifier le statut de la base RAG
 app.get('/api/rag/status', async (req, res) => {
     try {
-        const exists = await checkVectorStoreExists();
-        res.json({ exists });
+        const status = await checkVectorStoreExists();
+        res.json(status);
     } catch (error) {
         console.error("Erreur lors de la vérification du statut de la base RAG:", error);
         res.status(500).json({ error: "Impossible de vérifier le statut de la base de données." });
