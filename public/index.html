@@ -487,17 +487,18 @@
         </section>
     </main>
 
-    <!-- Download area for the report -->
-    <div id="report-download-area" class="report-download-container hidden">
-         <p>Votre rapport est prêt. Vous pouvez le télécharger avant de continuer.</p>
-         <a href="#" id="download-report-link" class="button-secondary" download="rapport-conformite-ia.txt">Télécharger le rapport</a>
-    </div>
-
     <!-- Modal for model selection -->
     <div id="model-modal" class="modal hidden">
         <div class="modal-content">
             <h2>Choisir un modèle d'IA</h2>
             <p>Veuillez sélectionner un modèle pour effectuer l'analyse de conformité.</p>
+            
+            <!-- Download area for the report -->
+            <div id="report-download-area" class="report-download-container hidden">
+                <p>Votre rapport est prêt. Vous pouvez le télécharger avant de continuer.</p>
+                <a href="#" id="download-report-link" class="button-secondary" download="rapport-conformite-ia.txt">Télécharger le rapport</a>
+            </div>
+
             <div class="form-group">
                 <label for="model-select">Modèles disponibles :</label>
                 <select id="model-select" name="model-select">
