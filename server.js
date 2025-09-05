@@ -2,6 +2,9 @@
 
 import express from 'express';
 import OpenAI from 'openai';
+import fs from 'fs/promises';
+import path from 'path';
+import { createVectorStore, checkVectorStoreExists, performSimilaritySearch } from './rag-service.js';
 
 const QUESTION_MAP = {
     "project_name": "Nom du Projet",
@@ -60,9 +63,11 @@ const port = process.env.PORT || 3000;
 
 // 2. Configurer l'API du LLM
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY || 'ollama',
   baseURL: process.env.OPENAI_BASE_URL,
 });
+
+
 
 let availableModels = [];
 let defaultModel = '';
@@ -108,6 +113,70 @@ app.get('/api/models', (req, res) => {
         res.json(availableModels);
     } else {
         res.status(503).json({ error: "La liste des modèles n'est pas encore disponible ou a échoué à charger." });
+    }
+});
+
+// Endpoint pour récupérer les modèles d'embedding depuis l'instance Ollama locale
+app.get('/api/embedding-models', async (req, res) => {
+    try {
+        const response = await fetch('http://localhost:11434/api/tags');
+        if (!response.ok) {
+            throw new Error(`Le serveur Ollama a répondu avec le statut ${response.status}`);
+        }
+        const data = await response.json();
+        // Adapter la réponse d'Ollama (`/api/tags`) au format attendu par le front-end
+        const models = data.models.map(model => ({
+            id: model.name,
+            owner: 'ollama' // L'API /api/tags ne fournit pas de propriétaire, on met une valeur par défaut
+        }));
+        res.json(models);
+    } catch (error) {
+        console.error("Erreur lors de la récupération des modèles d'embedding locaux:", error);
+        res.status(500).json({ error: "Impossible de lister les modèles d'embedding locaux. Assurez-vous que Ollama est bien en cours d'exécution." });
+    }
+});
+
+// Endpoint pour lister les documents disponibles pour le RAG
+app.get('/api/documents', async (req, res) => {
+    const documentsDir = path.join(process.cwd(), 'documents');
+    try {
+        const allFiles = await fs.readdir(documentsDir);
+        const compatibleFiles = allFiles.filter(file => {
+            const extension = path.extname(file).toLowerCase();
+            return ['.txt', '.md', '.pdf'].includes(extension);
+        });
+        res.json(compatibleFiles);
+    } catch (error) {
+        console.error(`Erreur lors de la lecture du répertoire des documents: ${documentsDir}`, error);
+        res.status(500).json({ error: "Impossible de lister les documents." });
+    }
+});
+
+// Endpoint pour créer la base vectorielle RAG
+app.post('/api/rag/create', async (req, res) => {
+    const { documents, embeddingModel } = req.body;
+
+    if (!documents || !embeddingModel || !Array.isArray(documents) || documents.length === 0) {
+        return res.status(400).json({ error: "La liste des documents et le modèle d'embedding sont requis." });
+    }
+
+    try {
+        await createVectorStore(documents, embeddingModel);
+        res.json({ message: "La base de données vectorielle a été créée avec succès." });
+    } catch (error) {
+        console.error("Erreur lors de la création de la base vectorielle:", error);
+        res.status(500).json({ error: `Une erreur est survenue: ${error.message}` });
+    }
+});
+
+// Endpoint pour vérifier le statut de la base RAG
+app.get('/api/rag/status', async (req, res) => {
+    try {
+        const status = await checkVectorStoreExists();
+        res.json(status);
+    } catch (error) {
+        console.error("Erreur lors de la vérification du statut de la base RAG:", error);
+        res.status(500).json({ error: "Impossible de vérifier le statut de la base de données." });
     }
 });
 
@@ -172,11 +241,32 @@ app.post('/analyze', async (req, res) => {
         }
     }
 
+    // --- INTÉGRATION RAG ---
+    let ragContext = "";
+    try {
+        const searchResults = await performSimilaritySearch(textReport);
+
+        if (searchResults && searchResults.length > 0) {
+            ragContext = "Contexte pertinent extrait de la base de connaissances (à utiliser pour l'analyse) :\n\n---\n" +
+                         searchResults.map(r => r.pageContent).join("\n\n---\n") +
+                         "\n\n---\n\n";
+            console.log("Contexte RAG ajouté au prompt.");
+        }
+    } catch (ragError) {
+        console.error("Erreur durant la recherche RAG, l'analyse continuera sans contexte.", ragError);
+    }
+    // --- FIN RAG ---
+
     // --- Code pour appeler le LLM ---
     const prompt = `
-      Analyse ce questionnaire de conformité pour un projet utilisant l'IA. 
+      En te basant sur le contexte suivant issu de la base de connaissance (si pertinent), analyse le questionnaire de conformité ci-dessous.
+
+      ${ragContext}
+      Questionnaire à analyser :
+
       Fournis une réponse circonstanciée sur les points de vigilance principaux, 
-      les risques potentiels (notamment s'il est à haut risque), et les obligations à respecter.
+      les risques potentiels (notamment s'il est à haut risque), et les obligations à respecter pour ce projet d'IA.
+
       Voici les données du formulaire :
       ${textReport}
     `;

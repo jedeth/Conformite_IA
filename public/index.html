@@ -8,6 +8,10 @@
 </head>
 <body>
     <main>
+        <div class="rag-config-bar">
+            <span>Base de connaissances RAG : <span id="rag-status-text">Non configurée</span></span>
+            <button id="open-rag-config" class="button-secondary">Configurer</button>
+        </div>
         <div class="header">
             <h1>Intelligence artificielle (IA)</h1>
             <h2>Procédure d’analyse de la conformité - Questionnaire</h2>
@@ -505,6 +509,34 @@
             <div class="modal-actions">
                 <button id="cancel-model-selection" class="button-secondary">Annuler</button>
                 <button id="confirm-model-selection">Lancer l'analyse</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for RAG configuration -->
+    <div id="rag-config-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Configurer la base de connaissances (RAG)</h2>
+            <p>Sélectionnez les documents à inclure et le modèle à utiliser pour créer la base vectorielle.</p>
+
+            <div class="form-group">
+                <label>Documents disponibles :</label>
+                <div id="rag-document-list">
+                    <!-- La liste des documents sera injectée ici par JavaScript -->
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="rag-embedding-model-select">Modèle d'embedding :</label>
+                <select id="rag-embedding-model-select" name="rag-embedding-model-select">
+                    <!-- Les options seront peuplées par JavaScript -->
+                </select>
+                <p class="tooltip" style="display: inline-block; padding: 0 5px; font-size: small;" data-tooltip="Assurez-vous de choisir un modèle optimisé pour les embeddings.">ⓘ</p>
+            </div>
+
+            <div class="modal-actions">
+                <button id="cancel-rag-config" class="button-secondary">Annuler</button>
+                <button id="confirm-rag-config">Créer la base de données</button>
             </div>
         </div>
     </div>

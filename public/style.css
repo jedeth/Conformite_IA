@@ -155,3 +155,31 @@ button:disabled {
     border-radius: 4px;
     display: inline-block;
 }
+
+/* RAG Configuration Bar */
+.rag-config-bar {
+    background-color: #f0f4f8;
+    padding: 10px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #d1d9e6;
+}
+
+.rag-config-bar span {
+    font-weight: 500;
+    color: #333;
+}
+
+#rag-status-text {
+    font-style: italic;
+    color: #555;
+    padding-left: 5px;
+}
+
+#rag-document-list .choice-item {
+    display: block; /* Make each checkbox appear on a new line */
+    margin-bottom: 8px;
+}

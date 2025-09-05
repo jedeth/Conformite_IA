@@ -198,7 +198,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const models = await response.json();
 
             modelSelect.innerHTML = ''; // Vider les anciennes options
-            models.forEach(model => {
+            const chatModels = models.filter(model => !model.id.includes('embed'));
+            chatModels.forEach(model => {
                 const option = document.createElement('option');
                 option.value = model.id;
                 option.textContent = `${model.id} (Propriétaire: ${model.owner})`;
@@ -261,4 +262,156 @@ document.addEventListener('DOMContentLoaded', function() {
         submitButton.disabled = false;
         currentFormData = null;
     });
+
+    // --- Logique pour la configuration RAG ---
+
+    const openRagConfigBtn = document.getElementById('open-rag-config');
+    const ragConfigModal = document.getElementById('rag-config-modal');
+    const ragStatusText = document.getElementById('rag-status-text');
+    const ragDocList = document.getElementById('rag-document-list');
+    const ragModelSelect = document.getElementById('rag-embedding-model-select');
+    const cancelRagBtn = document.getElementById('cancel-rag-config');
+    const confirmRagBtn = document.getElementById('confirm-rag-config');
+
+    // Mettre à jour le statut RAG au chargement de la page
+    async function updateRagStatus() {
+        try {
+            const response = await fetch('/api/rag/status');
+            if (!response.ok) throw new Error('La réponse du serveur n\'est pas valide.');
+            const data = await response.json();
+
+            if (data.exists) {
+                ragStatusText.innerHTML = `Configurée <span style="font-size: 0.8em; color: #666;">(Modèle: ${data.embeddingModel})</span>`;
+                ragStatusText.style.color = '#28a745'; // Vert
+            } else {
+                ragStatusText.textContent = 'Non configurée';
+                ragStatusText.style.color = '#c0392b'; // Rouge
+            }
+
+        } catch (error) {
+            console.error("Impossible de vérifier le statut RAG:", error);
+            ragStatusText.textContent = 'Erreur';
+            ragStatusText.style.color = '#333';
+        }
+    }
+
+    // Ouvrir la modale de configuration RAG
+    async function openRagConfigModal() {
+        ragConfigModal.classList.remove('hidden');
+        ragDocList.innerHTML = '<p>Chargement des documents...</p>';
+        ragModelSelect.innerHTML = '';
+        confirmRagBtn.textContent = 'Chargement...';
+
+        try {
+            const [docsRes, modelsRes, statusRes] = await Promise.all([
+                fetch('/api/documents'),
+                fetch('/api/embedding-models'), // Utiliser la nouvelle route pour les modèles locaux
+                fetch('/api/rag/status')
+            ]);
+
+            if (!docsRes.ok || !modelsRes.ok || !statusRes.ok) {
+                throw new Error("Impossible de charger les documents, les modèles ou le statut RAG depuis le serveur.");
+            }
+
+            const documents = await docsRes.json();
+            const models = await modelsRes.json();
+            const status = await statusRes.json();
+
+            // Mettre à jour le bouton en fonction de l'existence de la base
+            confirmRagBtn.textContent = status.exists ? 'Mettre à jour la base' : 'Créer la base de données';
+
+            // Peupler la liste des documents
+            ragDocList.innerHTML = '';
+            if (documents.length === 0) {
+                ragDocList.innerHTML = "<p>Aucun document compatible trouvé dans le dossier /documents.</p>";
+            } else {
+                documents.forEach(doc => {
+                    const div = document.createElement('div');
+                    div.className = 'choice-item';
+                    div.innerHTML = `
+                        <input type="checkbox" id="doc-${doc.replace(/[^a-zA-Z0-9]/g, '-')}" name="rag_document" value="${doc}">
+                        <label for="doc-${doc.replace(/[^a-zA-Z0-9]/g, '-')}">${doc}</label>
+                    `;
+                    ragDocList.appendChild(div);
+                });
+            }
+
+            // Peupler la liste des modèles en filtrant pour les modèles d'embedding
+            ragModelSelect.innerHTML = '';
+            const embeddingModels = models.filter(model => model.id.includes('embed'));
+            embeddingModels.forEach(model => {
+                const option = document.createElement('option');
+                option.value = model.id;
+                option.textContent = model.id; // Simplifié pour la clarté
+                ragModelSelect.appendChild(option);
+            });
+
+        } catch (error) {
+            ragDocList.innerHTML = `<p style="color: red;">${error.message}</p>`;
+        }
+    }
+
+    // Gérer la création de la base vectorielle
+    async function handleCreateVectorStore() {
+        const selectedDocs = Array.from(document.querySelectorAll('input[name="rag_document"]:checked')).map(cb => cb.value);
+        const selectedModel = ragModelSelect.value;
+
+        if (selectedDocs.length === 0) {
+            alert("Veuillez sélectionner au moins un document.");
+            return;
+        }
+        if (!selectedModel) {
+            alert("Veuillez sélectionner un modèle d'embedding.");
+            return;
+        }
+
+        confirmRagBtn.disabled = true;
+        confirmRagBtn.textContent = 'Création en cours...';
+
+        try {
+            const statusRes = await fetch('/api/rag/status');
+            const status = await statusRes.json();
+            if (status.exists) {
+                if (!confirm(`Une base de données existe déjà (modèle: ${status.embeddingModel}). Voulez-vous vraiment l'écraser et la reconstruire ?`)) {
+                    confirmRagBtn.disabled = false;
+                    confirmRagBtn.textContent = 'Mettre à jour la base';
+                    return;
+                }
+            }
+
+            const response = await fetch('/api/rag/create', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    documents: selectedDocs,
+                    embeddingModel: selectedModel
+                }),
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(result.error || 'Une erreur inconnue est survenue côté serveur.');
+            }
+
+            alert(result.message);
+            ragConfigModal.classList.add('hidden');
+            updateRagStatus();
+
+        } catch (error) {
+            console.error("Erreur lors de la création de la base RAG:", error);
+            alert(`Erreur: ${error.message}`);
+        } finally {
+            confirmRagBtn.disabled = false;
+            confirmRagBtn.textContent = 'Créer la base de données';
+        }
+    }
+
+    // Attacher les écouteurs d'événements pour le RAG
+    openRagConfigBtn.addEventListener('click', openRagConfigModal);
+    cancelRagBtn.addEventListener('click', () => ragConfigModal.classList.add('hidden'));
+    confirmRagBtn.addEventListener('click', handleCreateVectorStore);
+
+    // Mettre à jour le statut RAG au chargement initial
+    updateRagStatus();
 });
