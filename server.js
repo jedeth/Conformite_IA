@@ -2,6 +2,9 @@
 
 import express from 'express';
 import OpenAI from 'openai';
+import fs from 'fs/promises';
+import path from 'path';
+import { createVectorStore, checkVectorStoreExists, performSimilaritySearch } from './rag-service.js';
 
 const QUESTION_MAP = {
     "project_name": "Nom du Projet",
@@ -111,6 +114,54 @@ app.get('/api/models', (req, res) => {
     }
 });
 
+// Endpoint pour lister les documents disponibles pour le RAG
+app.get('/api/documents', async (req, res) => {
+    const documentsDir = path.join(process.cwd(), 'documents');
+    try {
+        const allFiles = await fs.readdir(documentsDir);
+        const compatibleFiles = allFiles.filter(file => {
+            const extension = path.extname(file).toLowerCase();
+            return ['.txt', '.md', '.pdf'].includes(extension);
+        });
+        res.json(compatibleFiles);
+    } catch (error) {
+        console.error(`Erreur lors de la lecture du répertoire des documents: ${documentsDir}`, error);
+        res.status(500).json({ error: "Impossible de lister les documents." });
+    }
+});
+
+// Endpoint pour créer la base vectorielle RAG
+app.post('/api/rag/create', async (req, res) => {
+    const { documents, embeddingModel } = req.body;
+
+    if (!documents || !embeddingModel || !Array.isArray(documents) || documents.length === 0) {
+        return res.status(400).json({ error: "La liste des documents et le modèle d'embedding sont requis." });
+    }
+
+    try {
+        const ollamaBaseUrl = process.env.OPENAI_BASE_URL;
+        if (!ollamaBaseUrl) {
+            throw new Error("L'URL de base d'Ollama (OPENAI_BASE_URL) n'est pas configurée dans le fichier .env");
+        }
+        await createVectorStore(documents, embeddingModel, ollamaBaseUrl);
+        res.json({ message: "La base de données vectorielle a été créée avec succès." });
+    } catch (error) {
+        console.error("Erreur lors de la création de la base vectorielle:", error);
+        res.status(500).json({ error: `Une erreur est survenue: ${error.message}` });
+    }
+});
+
+// Endpoint pour vérifier le statut de la base RAG
+app.get('/api/rag/status', async (req, res) => {
+    try {
+        const exists = await checkVectorStoreExists();
+        res.json({ exists });
+    } catch (error) {
+        console.error("Erreur lors de la vérification du statut de la base RAG:", error);
+        res.status(500).json({ error: "Impossible de vérifier le statut de la base de données." });
+    }
+});
+
 // Endpoint pour générer le rapport textuel seul
 app.post('/api/generate-report', (req, res) => {
     try {
@@ -172,11 +223,33 @@ app.post('/analyze', async (req, res) => {
         }
     }
 
+    // --- INTÉGRATION RAG ---
+    let ragContext = "";
+    try {
+        const ollamaBaseUrl = process.env.OPENAI_BASE_URL;
+        const searchResults = await performSimilaritySearch(textReport, ollamaBaseUrl);
+
+        if (searchResults && searchResults.length > 0) {
+            ragContext = "Contexte pertinent extrait de la base de connaissances (à utiliser pour l'analyse) :\n\n---\n" +
+                         searchResults.map(r => r.pageContent).join("\n\n---\n") +
+                         "\n\n---\n\n";
+            console.log("Contexte RAG ajouté au prompt.");
+        }
+    } catch (ragError) {
+        console.error("Erreur durant la recherche RAG, l'analyse continuera sans contexte.", ragError);
+    }
+    // --- FIN RAG ---
+
     // --- Code pour appeler le LLM ---
     const prompt = `
-      Analyse ce questionnaire de conformité pour un projet utilisant l'IA. 
+      En te basant sur le contexte suivant issu de la base de connaissance (si pertinent), analyse le questionnaire de conformité ci-dessous.
+
+      ${ragContext}
+      Questionnaire à analyser :
+
       Fournis une réponse circonstanciée sur les points de vigilance principaux, 
-      les risques potentiels (notamment s'il est à haut risque), et les obligations à respecter.
+      les risques potentiels (notamment s'il est à haut risque), et les obligations à respecter pour ce projet d'IA.
+
       Voici les données du formulaire :
       ${textReport}
     `;
